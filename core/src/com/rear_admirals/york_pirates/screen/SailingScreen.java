@@ -26,6 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.rear_admirals.york_pirates.College.*;
 import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
 import static com.rear_admirals.york_pirates.PirateGame.Physics;
+import static com.rear_admirals.york_pirates.PirateGame.Philosophy;
 import static com.rear_admirals.york_pirates.ShipType.*;
 
 public class SailingScreen extends BaseScreen {
@@ -143,8 +144,11 @@ public class SailingScreen extends BaseScreen {
                 if (objectName.equals("derwent")) solid.setCollege(Derwent);
                 else if (objectName.equals("james")) solid.setCollege(James);
                 else if (objectName.equals("vanbrugh")) solid.setCollege(Vanbrugh);
+                else if (objectName.equals("halifax")) solid.setCollege(Halifax);
+                else if (objectName.equals("alcuin")) solid.setCollege(Alcuin);
                 else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
                 else if (objectName.equals("physics")) solid.setDepartment(Physics);
+                else if (objectName.equals("philosophy")) solid.setDepartment(Philosophy);
                 else{
                     System.out.println("Not college/department: " + solid.getName());
                 }
@@ -169,6 +173,8 @@ public class SailingScreen extends BaseScreen {
                 if (object.getName().equals("derwentregion")) region.setCollege(Derwent);
                 else if (object.getName().equals("jamesregion")) region.setCollege(James);
                 else if (object.getName().equals("vanbrughregion")) region.setCollege(Vanbrugh);
+                else if (object.getName().equals("halifaxregion")) region.setCollege(Halifax);
+                else if (object.getName().equals("alcuinregion")) region.setCollege(Alcuin);
                 regionList.add(region);
             } else {
                 System.err.println("Unknown RegionData object.");
