@@ -1,54 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d75819b0-086e-4634-8c31-35228ef93e41" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_1_9_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_backend_lwjgl_1_9_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_platform_natives_desktop_1_9_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_jlayer_jlayer_1_0_1_gdx.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_platform_natives_linux_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_platform_natives_osx_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_platform_natives_windows_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jutils_jutils_1_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jcraft_jorbis_0_0_17.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_platform_natives_linux_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_platform_natives_osx_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_platform_natives_windows_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_util_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/arvo_size32.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/arvo_size32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/arvobold_size64.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/arvobold_size64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/coin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/default.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/flat-earth-ui.atlas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/flat-earth-ui.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/flat-earth-ui.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/font-button-export.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/font-export.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/font-title-export.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/game_map.tmx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/map-tiles-64.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/rpg-tiles-64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/rpg-tiles-64.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/ship (1).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/ship (2).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/ship1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/ship2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/ship3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/ship4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/tiles_sheet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/water_texture_sky.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop/assets/wood_vertical_board_texture.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/game_map.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/game_map.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/College.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/College.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/PirateGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/PirateGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" afterDir="false" />
-    </list>
+    <list default="true" id="d75819b0-086e-4634-8c31-35228ef93e41" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/core/.gradle/" />
@@ -89,6 +42,7 @@
     <session id="-1958508291">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -1125,7 +1079,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549558397609" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549558404423" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/core/assets" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.1539924" />
@@ -1201,14 +1155,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" />
@@ -1216,7 +1169,7 @@
       <window_info anchor="bottom" id="Build" weight="0.32923076" />
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32923076" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32923076" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3276923" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
