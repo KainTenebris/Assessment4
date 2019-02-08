@@ -129,10 +129,3 @@ public class Minigame {
 
 
 }
-//
-//    private int gold;
-//    private String turn;
-//    private int[] playerdice;
-//    private int[] enemydice;
-//    private boolean lost;
-//    private boolean won;

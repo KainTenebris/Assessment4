@@ -10,10 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.*;
 import com.rear_admirals.york_pirates.base.BaseScreen;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.GL20;
+
 
 
 public class MinigameScreen extends BaseScreen{
@@ -28,7 +25,7 @@ public class MinigameScreen extends BaseScreen{
     public MinigameScreen(final PirateGame main){
         super(main);
         player = main.getPlayer();
-        player.setGold(50);
+//        player.setGold(50);
 
         final Minigame ceelo = new Minigame();
 
@@ -144,6 +141,12 @@ public class MinigameScreen extends BaseScreen{
     }
 
     @Override
-    public void update(float delta) { }
+    public void update(float delta){
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            System.out.println("ESCAPE");
+            pirateGame.setScreen(pirateGame.getSailingScene());
+        }
+
+    }
 
 }
