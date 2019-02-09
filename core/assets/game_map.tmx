@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="1111">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="1141">
  <tileset firstgid="1" source="rpg-tiles-64.tsx"/>
  <tileset firstgid="261" source="map-tiles-64.tsx"/>
  <layer id="1" name="Water" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJztw0ENAAAMA6GTUv8q52FvSFg1VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV9fUAzKEgLg==
+   eJzt2EEOwjAMRNFyEy7E/a/DFglRKBl7bOcv/grUOq+hQrkfx3Enorcet8+5Z6vemR2G63YY4hcVfvg5ww8/Z1f8MFyzw2+Wn3u2rn6VZpzolzl3lTmi/aLX0MVO4ecydLsp/SLWtKOfcm1d/DCsaRg9k9sr0jB6HrfT6jqufq66b1c/Z/gREREREVFmnc5hqpV5XjEtx5nPhJxnZt1znzl2rNKZbdVUZ9s7+mFX1w6/eL9fvl/1Wbj9HHta/Rxcfo53RMS7ZRe/6L2daffLfa98/9v1/1mf0vDfZ+Iu450wuTOXMyf88vfV1H2b4Tf5d5/tN83Q4TfFMPvdN80QP/ycuf2mGWbdZ6ofv+G1dWXdBz+N3QS/1/VFX3+iXXTY6f3cM3UKP70fhuuG7pk6hZ/e0D1Pt/Cr67fD84jy22lPK9e64/+iaLvpfqqw05lhqPXDcN0weo4n1n3UaA==
   </data>
  </layer>
  <layer id="2" name="Islands" width="80" height="80">
@@ -14,7 +14,7 @@
  </layer>
  <layer id="3" name="Scenery" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA1wBkAAAB
+   eJzt20tOwzAQgOH4DHADuAEcoKsuSBeURdcULsrRiEUiWQa7OHXsmen/SVbUDXHHk/GjYRgAAOhrdD/Xg+vbD232iuMldaw15KKkcb8Up1FQX6UiRnX5nFyaVFLH/K9+Se2rFpLqNWNZh+TaogHxu044v/FMr0MOliFedfC8ogdJ61ALqIfrhTVQa15q7bcE0p4daf3JYf1gC+OJW8T8+X8HBb9LShXXV+rtZS3yLP6t3V8tjk1Y53h+y4U5YTE/aotzjJwD0MOaNT716reSeY85Mi2XW0vc2JcCAAAAAADUcXTDcD+396m9ce5S5DGK187QOwItzuDOc94tOfgxtZdGMWwxRi3ucUrcYx/EUiPLZ+it3r3uFUML9a+nY1QXmZfLfLr851qs5nm8rnkw+j234HNil1gX1mZ1jiT/rtOi/lmtfd452BMv+xLcljC/La2j4+9iZR+8tdY5kBqnGv04ueHr+r+y3tjw/wz8fWrssf2e7Glqr/M1tyeree6yjLv2d+LuXP4z8lJnzV5YX7XnyVZK8k/zuelWljXxc7QmbnVeb1Hq7B6Abd/6limp
   </data>
  </layer>
  <layer id="4" name="Overlay" width="80" height="80">
@@ -23,7 +23,7 @@
   </data>
  </layer>
  <objectgroup id="5" name="ObjectData">
-  <object id="1" name="player" x="2598.67" y="2113.33" width="25.3333" height="62.6667"/>
+  <object id="1" name="player" x="2596.67" y="2113.33" width="25.3333" height="62.6667"/>
  </objectgroup>
  <objectgroup id="6" name="PhysicsData">
   <object id="8" name="chemistry" x="1348" y="1920" width="92" height="64"/>
@@ -931,10 +931,28 @@
   <object id="1109" name="halifax" x="4096" y="3410" width="20" height="63.3333"/>
  </objectgroup>
  <objectgroup id="7" name="RegionData">
-  <object id="721" name="derwentregion" x="16" y="2728" width="2200" height="2392"/>
-  <object id="723" name="jamesregion" x="3152" y="8" width="1976" height="2000"/>
-  <object id="860" name="alcuinregion" x="3100" y="2008" width="2050" height="1090"/>
-  <object id="942" name="vanbrughregion" x="2219" y="3100" width="1130" height="2050"/>
-  <object id="944" name="halifaxregion" x="3350" y="3100" width="1800" height="2050"/>
+  <object id="721" name="derwentregion" x="434.545" y="3263.58" width="1351.45" height="1856.42"/>
+  <object id="723" name="jamesregion" x="3092" y="8" width="2036" height="2000"/>
+  <object id="860" name="alcuinregion" x="3348" y="2016" width="1822" height="754"/>
+  <object id="942" name="vanbrughregion" x="2219" y="3100" width="1002" height="1722"/>
+  <object id="944" name="halifaxregion" x="3550" y="3082" width="1600" height="2068"/>
+  <object id="1120" name="stormyregion" x="2545.45" y="115.152" width="521.212" height="1478.79"/>
+  <object id="1121" name="stormyregion" x="2303.03" y="118.182" width="248.485" height="975.758"/>
+  <object id="1122" name="stormyregion" x="636.364" y="1157.58" width="830.303" height="375.758"/>
+  <object id="1123" name="stormyregion" x="133.333" y="836.364" width="503.03" height="630.303"/>
+  <object id="1124" name="stormyregion" x="639.394" y="966.667" width="569.697" height="193.939"/>
+  <object id="1125" name="stormyregion" x="3651.52" y="2777.7" width="1221.21" height="294.909"/>
+  <object id="1126" name="stormyregion" x="2700" y="2181.82" width="624.242" height="896.97"/>
+  <object id="1127" name="stormyregion" x="1669.7" y="2554.55" width="1029.27" height="536.364"/>
+  <object id="1128" name="stormyregion" x="2431.97" y="2362.64" width="267" height="190.909"/>
+  <object id="1129" name="stormyregion" x="1793.94" y="3269.7" width="312.121" height="1572.73"/>
+  <object id="1130" name="stormyregion" x="2106.06" y="3527.27" width="103.03" height="600"/>
+  <object id="1131" name="stormyregion" x="2948.48" y="4828.24" width="581.818" height="280.848"/>
+  <object id="1132" name="stormyregion" x="3236.36" y="4596.97" width="284.848" height="231.273"/>
+  <object id="1136" name="stormyregion" x="629.333" y="3008" width="462.667" height="246"/>
+  <object id="1137" name="stormyregion" x="324" y="2952" width="304" height="248"/>
+  <object id="1138" name="stormyregion" x="68" y="3202" width="360.667" height="124"/>
+  <object id="1139" name="stormyregion" x="196" y="3328" width="194" height="758"/>
+  <object id="1140" name="stormyregion" x="148.667" y="3092.67" width="173.333" height="107.333"/>
  </objectgroup>
 </map>

@@ -54,14 +54,15 @@ public class SailingScreen extends BaseScreen {
 
     private Label pointsLabel;
     private Label goldLabel;
+    private Label healthLabel;//*---------------------------------------------------------------------------------------------
     private Label mapMessage;
     private Label hintMessage;
 
     private Float timer;
 	
 	//--------------------------------------------------------------------------------------------------------------------------
-    boolean inStorm = false; //move to top
-	int weatherTimer = 0; //move this to top of list
+    boolean inStorm = false; //*move to top
+	int weatherTimer = 0; //*move this to top of list
     //--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -84,12 +85,19 @@ public class SailingScreen extends BaseScreen {
         goldLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
         goldLabel.setAlignment(Align.left);
 
+        Label healthTextLabel = new Label("Health:", main.getSkin(),"default_black");//*
+        healthLabel = new Label(Integer.toString(playerShip.getHealth()), main.getSkin(), "default_black");//*
+        healthLabel.setAlignment(Align.left);//*
+
         uiTable.add(pointsTextLabel);
         uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
         uiTable.row();
         uiTable.add(goldTextLabel).fill();
         uiTable.add(goldLabel).fill();
-
+        //---------------------------------------------------------------------------------------------------------------------
+        uiTable.add(healthTextLabel).fill();//*
+        uiTable.add(healthLabel).fill();//*
+        //---------------------------------------------------------------------------------------------------------------------
         uiTable.align(Align.topRight);
         uiTable.setFillParent(true);
 
@@ -181,6 +189,7 @@ public class SailingScreen extends BaseScreen {
                 else if (object.getName().equals("vanbrughregion")) region.setCollege(Vanbrugh);
                 else if (object.getName().equals("halifaxregion")) region.setCollege(Halifax);
                 else if (object.getName().equals("alcuinregion")) region.setCollege(Alcuin);
+                else if (object.getName().equals("stormyregion")) region.setCollege(Storm);//*
                 regionList.add(region);
             } else {
                 System.err.println("Unknown RegionData object.");
@@ -208,15 +217,16 @@ public class SailingScreen extends BaseScreen {
             if (playerShip.overlaps(region, false)) {
                 x = true;
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
-                
-				//Can add stuff here, if bad weather is a region (such as a college's region)-------------------------------------
-				
-			
-                if(name == "stormy"){
+                //*---------------------------------------------------------------------------------------------------------------
+				//We will put bad weather down as a region as we don't want it to be something that the player can intereact with, etc
+                //And it also opens up the opportunity for us to use the random enemy encounters to make a bad weather related enemy encounter.
+                if(name.equals("stormyregion")){
                     weatherTimer++;
                     inStorm = true; //Used to affect point bonus at the bottom.
                     if (weatherTimer >= 30){
-                        playerShip.setHealth(playerShip.getHealth() - 1);
+                        if(playerShip.getHealth()> (playerShip.getHealthMax()/4)){
+                            playerShip.setHealth(playerShip.getHealth() - 1); //Can't die from bad weather.
+                        }
                         weatherTimer = 0;
                     }
                 } else{
@@ -226,7 +236,7 @@ public class SailingScreen extends BaseScreen {
 					}
 
                 }
-				//End weather stuff here------------------------------------------------------------------------------------------
+				//*End weather stuff here------------------------------------------------------------------------------------------
 				
 				
 				
@@ -267,13 +277,14 @@ public class SailingScreen extends BaseScreen {
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
                         System.out.println("A college");
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
+                            //*-----------------------------------------------------------------------------------------------------------------------------------
 							if(college.getName().equals("Halifax")){ //Final boss name
                                 System.out.println("Final boss");//
-                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Final Boss", true)));//
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Final Boss", true)));//*
                             } else{
-                                //---------------------------------------------------------------------------------------------------------------------------------
+                                //*---------------------------------------------------------------------------------------------------------------------------------
                                 System.out.println("Enemy");
-                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(8, 8, 8, Brig, college, college.getName() + " Boss", true)));
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(8, 8, 8, Brig, college, college.getName() + " Boss", true)));//*
                             }
                         } else {
                             System.out.println("Ally");
@@ -312,11 +323,11 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
-            //-----------------------------------------------------------------------------------------------------------------------
+            //*-----------------------------------------------------------------------------------------------------------------------
             if(inStorm){
                 pirateGame.getPlayer().addPoints(1); //bonus point
             }
-            //-----------------------------------------------------------------------------------------------------------------------
+            //*-----------------------------------------------------------------------------------------------------------------------
             pirateGame.getPlayer().addPoints(1);
             //Could just put something here or elsewhere to do this when in bad weather, get 2 points per timer.
             //Also can do
@@ -327,6 +338,7 @@ public class SailingScreen extends BaseScreen {
         }
 
         pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
+        healthLabel.setText(Integer.toString(playerShip.getHealth()));//------------------------------------------------------------------------------
     }
 
     @Override
