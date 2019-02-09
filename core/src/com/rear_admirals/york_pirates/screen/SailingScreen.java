@@ -58,6 +58,12 @@ public class SailingScreen extends BaseScreen {
     private Label hintMessage;
 
     private Float timer;
+	
+	//--------------------------------------------------------------------------------------------------------------------------
+    boolean inStorm = false; //move to top
+	int weatherTimer = 0; //move this to top of list
+    //--------------------------------------------------------------------------------------------------------------------------
+
 
     public SailingScreen(final PirateGame main){
         super(main);
@@ -202,7 +208,29 @@ public class SailingScreen extends BaseScreen {
             if (playerShip.overlaps(region, false)) {
                 x = true;
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
-                int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
+                
+				//Can add stuff here, if bad weather is a region (such as a college's region)-------------------------------------
+				
+			
+                if(name == "stormy"){
+                    weatherTimer++;
+                    inStorm = true; //Used to affect point bonus at the bottom.
+                    if (weatherTimer >= 30){
+                        playerShip.setHealth(playerShip.getHealth() - 1);
+                        weatherTimer = 0;
+                    }
+                } else{
+                    if(inStorm){
+						inStorm = false;
+						weatherTimer = 0;
+					}
+
+                }
+				//End weather stuff here------------------------------------------------------------------------------------------
+				
+				
+				
+				int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
                     System.out.println("Enemy Found in " + name);
                     College college = region.getCollege();
@@ -213,7 +241,8 @@ public class SailingScreen extends BaseScreen {
                 }
             }
         }
-
+	
+		//do we set bad weather'd regions as neutral or keep it in enemy, or would it be in both?
         if (!x) {
             mapMessage.setText("Neutral Territory");
         }
@@ -238,8 +267,14 @@ public class SailingScreen extends BaseScreen {
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
                         System.out.println("A college");
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
-                            System.out.println("Enemy");
-                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
+							if(college.getName().equals("Halifax")){ //Final boss name
+                                System.out.println("Final boss");//
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Final Boss", true)));//
+                            } else{
+                                //---------------------------------------------------------------------------------------------------------------------------------
+                                System.out.println("Enemy");
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(8, 8, 8, Brig, college, college.getName() + " Boss", true)));
+                            }
                         } else {
                             System.out.println("Ally");
                             pirateGame.setScreen(new CollegeScreen(pirateGame, college));
@@ -277,7 +312,17 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
+            //-----------------------------------------------------------------------------------------------------------------------
+            if(inStorm){
+                pirateGame.getPlayer().addPoints(1); //bonus point
+            }
+            //-----------------------------------------------------------------------------------------------------------------------
             pirateGame.getPlayer().addPoints(1);
+            //Could just put something here or elsewhere to do this when in bad weather, get 2 points per timer.
+            //Also can do
+            //playerShip.setHealth();
+            //playerShip.setAccuracy();
+            //To negatively affect either/or while they're in bad weather. Note that setting accuracy would have to be fixed when out of bad weather.
             timer -= 1;
         }
 
