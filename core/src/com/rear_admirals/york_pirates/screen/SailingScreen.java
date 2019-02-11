@@ -216,6 +216,11 @@ public class SailingScreen extends BaseScreen {
             }
         }
 
+        //Press O to get objectives
+        if (Gdx.input.isKeyPressed(Input.Keys.O)){
+            pirateGame.setScreen(new ObjectiveScreen(pirateGame));
+        }
+
         if (!x) {
             mapMessage.setText("Neutral Territory");
         }

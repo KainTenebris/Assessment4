@@ -59,7 +59,15 @@ public class MinigameScreen extends BaseScreen{
                     }
                     currentGoldLabel.setText(Integer.toString(main.getPlayer().getGold()));
                 } else {
-                    rollDice.setText("You don't have enough money");
+
+                    if (rollDice.getText().toString().equals("SELL SOUL")){
+                        rollDice.setText(sellSoul(pirateGame, ceelo, rollDice));
+                    }
+                    if (rollDice.getText().toString().equals("You don't have enough money")){
+                        rollDice.setText("SELL SOUL");
+                    } else {
+                        rollDice.setText("You don't have enough money");
+                    }
                 }
 
             }
@@ -104,6 +112,23 @@ public class MinigameScreen extends BaseScreen{
 
         Gdx.input.setInputProcessor(mainStage);
 
+    }
+
+    public String sellSoul(PirateGame main, Minigame ceelo, TextButton diceButton){
+        int gold = main.getPlayer().getGold();
+        String gameState = ceelo.playGame();
+        int[] playerdice = ceelo.getPlayerdice();
+        int[] enemydice = ceelo.getEnemydice();
+        gameStateLabel.setText(gameState);
+        setDiceImages(playerdice,enemydice);
+        if (gameState == "Lost"){
+            Gdx.app.exit();
+        } else if (gameState == "Won"){
+            player.setGold(100);
+        }
+        currentGoldLabel.setText(Integer.toString(main.getPlayer().getGold()));
+        diceButton.setText("10 Gold to Roll dice");
+        return diceButton.getText().toString();
     }
 
     public void setDiceImages(int[] playerdice, int[] enemydice){

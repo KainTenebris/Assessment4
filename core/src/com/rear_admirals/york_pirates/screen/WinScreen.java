@@ -27,6 +27,7 @@ public class WinScreen extends BaseScreen {
     private Texture texture;
     private Image win;
 
+    //Displays Win Screen
     public WinScreen(final PirateGame main){
         super(main);
 //        batch = new SpriteBatch();
@@ -38,10 +39,14 @@ public class WinScreen extends BaseScreen {
 
     }
 
+    //Quits game is ESC is pressed
     @Override
-    public void update(float delta){}
+    public void update(float delta){
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            Gdx.app.exit();
+        }
 
-
+    }
 
 
 }
