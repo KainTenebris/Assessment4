@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.rear_admirals.york_pirates.College.Halifax;
+
 public class CombatScreen extends BaseScreen {
 
     // screen layout variables
@@ -105,7 +107,12 @@ public class CombatScreen extends BaseScreen {
 
         // Instantiate both the ships for the battle
         CombatShip myShip = new CombatShip("ship1.png", viewwidth/3);
-        CombatShip enemyShip = new CombatShip("ship2.png",viewwidth/3);
+        //enemyship first checks whether it is a boss before instantializing the correct enemyShipFile
+        String enemyShipFile = "ship2.png"; //defaults to base ship
+        if (enemy.getIsBoss() && enemy.getCollege().equals(Halifax)) {
+            enemyShipFile = "fort.png"; //if the ship is a boss and is Halifax uses a special image
+        }
+        CombatShip enemyShip = new CombatShip(enemyShipFile,viewwidth/3);
 
         Label shipName = new Label(player.getPlayerShip().getName(),pirateGame.getSkin(), "default_black");
         playerHP = new ProgressBar(0, player.getPlayerShip().getHealthMax(),0.1f,false,pirateGame.getSkin());

@@ -58,6 +58,7 @@ public class SailingScreen extends BaseScreen {
     private Label hintMessage;
 
     private Float timer;
+    private Float pointMulti; //added multiplier to increase point gain over time
 
     public SailingScreen(final PirateGame main){
         super(main);
@@ -182,6 +183,7 @@ public class SailingScreen extends BaseScreen {
         }
 
         timer = 0f;
+        pointMulti = 1f;
 
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
@@ -277,7 +279,14 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
-            pirateGame.getPlayer().addPoints(1);
+            //changed point gain to have a multiplier which increases on update - more time = higher multiplier
+            if (Math.round(pointMulti) < 2) {
+                pointMulti += pointMulti/100;
+            } else if (Math.round(pointMulti) < 3) {
+                pointMulti += pointMulti/200;
+            }
+            //at maximum multiplier (3) - stops updating
+            pirateGame.getPlayer().addPoints(Math.round(1 * pointMulti));
             timer -= 1;
         }
 
