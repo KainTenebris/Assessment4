@@ -80,22 +80,11 @@ public class DepartmentScreen extends BaseScreen {
             }
         });
 
-        TextButton minigame_mode = new TextButton("Go to minigame", pirateGame.getSkin()); //added
-        minigame_mode.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                pirateGame.setScreen(new MinigameScreen(pirateGame));
-                dispose();
-            }
-        });
-
         optionsTable.add(title);
         optionsTable.row();
         optionsTable.add(upgrade);
         optionsTable.row();
         optionsTable.add(heal);
-        optionsTable.row();
-        optionsTable.add(minigame_mode);    //Added
 
 
 

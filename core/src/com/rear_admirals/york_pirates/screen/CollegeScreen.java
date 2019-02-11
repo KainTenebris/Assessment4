@@ -76,9 +76,19 @@ public class CollegeScreen extends BaseScreen {
         });
         optionsTable.add(heal);
 
+        TextButton minigame_mode = new TextButton("Go to minigame", pirateGame.getSkin()); //added
+        minigame_mode.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                pirateGame.setScreen(new MinigameScreen(pirateGame));
+                dispose();
+            }
+        });
 
         optionsTable.row();
         optionsTable.add(message);
+        optionsTable.row();
+        optionsTable.add(minigame_mode);    //Added
 
         mainStage.addActor(optionsTable);
         Gdx.input.setInputProcessor(mainStage);
