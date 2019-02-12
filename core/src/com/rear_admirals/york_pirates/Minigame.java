@@ -105,6 +105,7 @@ public class Minigame {
             }
         }
 
+        //Works who had the highest score, and decides whether it was a win/loss/draw
         if (score[0] > score[1]){
             comp[2] = "Win";
         } else if (score[0] < score[1]){
@@ -113,6 +114,8 @@ public class Minigame {
             comp[2] = "Draw";
         }
 
+
+        //For debugging purposes
         System.out.println("Your score is " + score[0]);
         System.out.println("Their score is " + score[1]);
         System.out.println("");

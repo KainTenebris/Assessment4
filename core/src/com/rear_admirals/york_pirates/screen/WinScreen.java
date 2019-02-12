@@ -33,12 +33,12 @@ public class WinScreen extends BaseScreen {
         super(main);
         player = main.getPlayer();
 
-//        batch = new SpriteBatch();
         this.texture = new Texture("win.png");
         win = new Image(texture);
         win.setSize(viewwidth, viewheight);
         mainStage.addActor(win);
 
+        //Displays points obtained
         Table pointsTable = new Table();
         Label pointsLabel = new Label("Your points were ",main.getSkin());
         Label numPointsLabel = new Label(Integer.toString(this.player.getPoints()), main.getSkin());
