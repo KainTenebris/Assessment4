@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.screen.ObjectiveScreen;
+import com.rear_admirals.york_pirates.screen.WinScreen;
 import com.rear_admirals.york_pirates.screen.combat.attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
@@ -375,6 +378,10 @@ public class CombatScreen extends BaseScreen {
                 if (enemy.getIsBoss() == true) {
                     enemy.getCollege().setBossDead(true);
                     this.player.getPlayerShip().getCollege().addAlly(this.enemy.getCollege());
+                    //Win game if you defeat final boss
+                    if (this.player.getPlayerShip().getCollege().getAlly().contains(College.Halifax)){
+                        pirateGame.setScreen(new WinScreen(pirateGame));
+                    }
                 }
                 break;
             case PLAYER_FLEES:

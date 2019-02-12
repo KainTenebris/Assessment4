@@ -21,11 +21,14 @@ public class MinigameScreen extends BaseScreen{
     private DiceImage[] playerdiceimages;
     private DiceImage[] enemydiceimages;
 
+    private int sellSoulStage;
 
+//Initialises the minigame
     public MinigameScreen(final PirateGame main){
         super(main);
         player = main.getPlayer();
 //        player.setGold(50);
+        sellSoulStage = 0;
 
         final Minigame ceelo = new Minigame();
 
@@ -46,6 +49,7 @@ public class MinigameScreen extends BaseScreen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 if (main.getPlayer().getGold() >= 10){
+                    rollDice.setText("10 Gold to Roll Dice");
                     int gold = main.getPlayer().getGold();
                     String gameState = ceelo.playGame();
                     int[] playerdice = ceelo.getPlayerdice();
@@ -59,7 +63,20 @@ public class MinigameScreen extends BaseScreen{
                     }
                     currentGoldLabel.setText(Integer.toString(main.getPlayer().getGold()));
                 } else {
-                    rollDice.setText("You don't have enough money");
+
+                    if (sellSoulStage == 0){
+                        rollDice.setText("You don't have enough money");
+                        sellSoulStage += 1;
+                    } else if (sellSoulStage == 1) {
+                        rollDice.setText("SELL SOUL");
+                        sellSoulStage += 1;
+                    } else if (sellSoulStage == 2){
+                        while (main.getPlayer().getGold() != 100){
+                            sellSoul(pirateGame, ceelo, rollDice);
+                        }
+                        rollDice.setText("10 Gold to Roll Dice");
+                        sellSoulStage = 0;
+                    }
                 }
 
             }
@@ -106,6 +123,25 @@ public class MinigameScreen extends BaseScreen{
 
     }
 
+    public void sellSoul(PirateGame main, Minigame ceelo, TextButton diceButton){
+        int gold = main.getPlayer().getGold();
+        String gameState = ceelo.playGame();
+        int[] playerdice = ceelo.getPlayerdice();
+        int[] enemydice = ceelo.getEnemydice();
+        gameStateLabel.setText(gameState);
+        setDiceImages(playerdice,enemydice);
+        if (gameState == "Lost"){
+            Gdx.app.exit();
+        } else if (gameState == "Won"){
+            player.setGold(100);
+        }  else {
+
+        }
+        currentGoldLabel.setText(Integer.toString(main.getPlayer().getGold()));
+        diceButton.setText("10 Gold to Roll dice");
+        return;
+    }
+
     public void setDiceImages(int[] playerdice, int[] enemydice){
         for (int i = 0; i < 3; i++){
             if (playerdice[i] == 1){
@@ -140,6 +176,7 @@ public class MinigameScreen extends BaseScreen{
         }
     }
 
+    //Goes back to sailing mode if ESC is pressed
     @Override
     public void update(float delta){
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){

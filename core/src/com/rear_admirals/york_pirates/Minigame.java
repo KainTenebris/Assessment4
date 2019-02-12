@@ -14,6 +14,7 @@ public class Minigame {
 
     //Run game
 
+    //Instatiates the main game and sets all the necessary variables
     public Minigame(){
         gold = 1000;
         turn = "player";
@@ -25,6 +26,7 @@ public class Minigame {
     }
 
 
+    //Simulates a roll of the dice vs. your oppopnent, and returns whether you won, lost or whether you're still playing (draw_
     public String playGame(){
         String[] Scores = new String[2];
 
@@ -48,7 +50,7 @@ public class Minigame {
     }
 
 
-
+//Gets random values to simulate the dice rolls
     public int[] randomdice(){
         Random rand = new Random();
         int[] dice = new int[3];
@@ -60,6 +62,7 @@ public class Minigame {
         return dice;
     }
 
+    //Compares two sets of dice rolls and returns who won, and what the respective types of dice rolls they got
     public String[] comparison(int[] playerdice, int[] enemydice){
         String[] comp = new String[3];
         int[] score = new int[2];
@@ -102,6 +105,7 @@ public class Minigame {
             }
         }
 
+        //Works who had the highest score, and decides whether it was a win/loss/draw
         if (score[0] > score[1]){
             comp[2] = "Win";
         } else if (score[0] < score[1]){
@@ -110,6 +114,8 @@ public class Minigame {
             comp[2] = "Draw";
         }
 
+
+        //For debugging purposes
         System.out.println("Your score is " + score[0]);
         System.out.println("Their score is " + score[1]);
         System.out.println("");
@@ -117,10 +123,12 @@ public class Minigame {
         return comp;
     }
 
+    //Returns the player's dice scores
     public int[] getPlayerdice(){
         return playerdice;
     }
 
+    //Returns the opponent's dice scores
     public int[] getEnemydice(){
         return enemydice;
     }

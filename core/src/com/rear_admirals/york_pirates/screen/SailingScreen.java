@@ -255,8 +255,12 @@ public class SailingScreen extends BaseScreen {
                 }
             }
         }
-	
-		//do we set bad weather'd regions as neutral or keep it in enemy, or would it be in both?
+
+        //Press O to get objectives
+        if (Gdx.input.isKeyPressed(Input.Keys.O)){
+            pirateGame.setScreen(new ObjectiveScreen(pirateGame));
+        }
+
         if (!x) {
             mapMessage.setText("Neutral Territory");
         }
