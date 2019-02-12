@@ -26,16 +26,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class WinScreen extends BaseScreen {
     private Texture texture;
     private Image win;
+    private Player player;
 
     //Displays Win Screen
     public WinScreen(final PirateGame main){
         super(main);
+        player = main.getPlayer();
+
 //        batch = new SpriteBatch();
         this.texture = new Texture("win.png");
         win = new Image(texture);
         win.setSize(viewwidth, viewheight);
         mainStage.addActor(win);
 
+        Table pointsTable = new Table();
+        Label pointsLabel = new Label("Your points were ",main.getSkin());
+        Label numPointsLabel = new Label(Integer.toString(this.player.getPoints()), main.getSkin());
+        pointsTable.add(pointsLabel);
+        pointsTable.add(numPointsLabel).width(pointsLabel.getWidth());
+        pointsTable.align(Align.topLeft);
+        pointsTable.setFillParent(true);
+        mainStage.addActor(pointsTable);
+
+        Gdx.input.setInputProcessor(mainStage);
 
     }
 
