@@ -1,8 +1,9 @@
 package com.rear_admirals.york_pirates;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static groovy.util.GroovyTestCase.assertEquals;
+import static junit.framework.TestCase.fail;
 
 
 class MinigameTest {
