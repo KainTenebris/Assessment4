@@ -54,15 +54,15 @@ public class SailingScreen extends BaseScreen {
 
     private Label pointsLabel;
     private Label goldLabel;
-    private Label healthLabel;//*---------------------------------------------------------------------------------------------
+    private Label healthLabel;//*Adding HP points to UI so they can see damage taken in storm
     private Label mapMessage;
     private Label hintMessage;
 
     private Float timer;
 	
 	//--------------------------------------------------------------------------------------------------------------------------
-    boolean inStorm = false; //*move to top
-	int weatherTimer = 0; //*move this to top of list
+    boolean inStorm = false; //*If the ship is in a storm.
+	int weatherTimer = 0; //Timer to see how long ship was in storm for damage.
     //--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -95,7 +95,7 @@ public class SailingScreen extends BaseScreen {
         uiTable.add(goldTextLabel).fill();
         uiTable.add(goldLabel).fill();
         //---------------------------------------------------------------------------------------------------------------------
-        uiTable.add(healthTextLabel).fill();//*
+        uiTable.add(healthTextLabel).fill();//*Just adding HP to UI
         uiTable.add(healthLabel).fill();//*
         //---------------------------------------------------------------------------------------------------------------------
         uiTable.align(Align.topRight);
@@ -189,7 +189,7 @@ public class SailingScreen extends BaseScreen {
                 else if (object.getName().equals("vanbrughregion")) region.setCollege(Vanbrugh);
                 else if (object.getName().equals("halifaxregion")) region.setCollege(Halifax);
                 else if (object.getName().equals("alcuinregion")) region.setCollege(Alcuin);
-                else if (object.getName().equals("stormyregion")) region.setCollege(Storm);//*
+                else if (object.getName().equals("stormyregion")) region.setCollege(Storm);//*Adding storm region to the map. Set as colleges as they have the functionality we need.
                 regionList.add(region);
             } else {
                 System.err.println("Unknown RegionData object.");
@@ -220,17 +220,19 @@ public class SailingScreen extends BaseScreen {
                 //*---------------------------------------------------------------------------------------------------------------
 				//We will put bad weather down as a region as we don't want it to be something that the player can intereact with, etc
                 //And it also opens up the opportunity for us to use the random enemy encounters to make a bad weather related enemy encounter.
+                //Also displays on the UI what region they're in, helping them know if they're still in the storm.
                 if(name.equals("stormyregion")){
-                    weatherTimer++;
-                    inStorm = true; //Used to affect point bonus at the bottom.
-                    if (weatherTimer >= 30){
+                    weatherTimer++; //Time in storm increased
+                    inStorm = true; //Used to affect point bonus at the bottom of code.
+                    if (weatherTimer >= 30){ //After certain point
                         if(playerShip.getHealth()> (playerShip.getHealthMax()/4)){
-                            playerShip.setHealth(playerShip.getHealth() - 1); //Can't die from bad weather.
+                            playerShip.setHealth(playerShip.getHealth() - 1); //Can't die from bad weather, only get down to 1/4 of max HP
                         }
                         weatherTimer = 0;
                     }
                 } else{
                     if(inStorm){
+                        //Set it all to zero/false when out of storm, if boolean value still says they're in storm.
 						inStorm = false;
 						weatherTimer = 0;
 					}
@@ -278,6 +280,7 @@ public class SailingScreen extends BaseScreen {
                         System.out.println("A college");
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
                             //*-----------------------------------------------------------------------------------------------------------------------------------
+                            //*Make final boss more difficult than the regular college bosses.
 							if(college.getName().equals("Halifax")){ //Final boss name
                                 System.out.println("Final boss");//
                                 pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Final Boss", true)));//*
@@ -325,20 +328,15 @@ public class SailingScreen extends BaseScreen {
         if (timer > 1) {
             //*-----------------------------------------------------------------------------------------------------------------------
             if(inStorm){
-                pirateGame.getPlayer().addPoints(1); //bonus point
+                pirateGame.getPlayer().addPoints(1); //*bonus point for being in storm
             }
             //*-----------------------------------------------------------------------------------------------------------------------
             pirateGame.getPlayer().addPoints(1);
-            //Could just put something here or elsewhere to do this when in bad weather, get 2 points per timer.
-            //Also can do
-            //playerShip.setHealth();
-            //playerShip.setAccuracy();
-            //To negatively affect either/or while they're in bad weather. Note that setting accuracy would have to be fixed when out of bad weather.
             timer -= 1;
         }
 
         pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
-        healthLabel.setText(Integer.toString(playerShip.getHealth()));//------------------------------------------------------------------------------
+        healthLabel.setText(Integer.toString(playerShip.getHealth()));//*
     }
 
     @Override

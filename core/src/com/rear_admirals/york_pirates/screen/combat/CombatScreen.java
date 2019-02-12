@@ -352,7 +352,7 @@ public class CombatScreen extends BaseScreen {
                 textBox.setStyle(pirateGame.getSkin().get("default", TextButton.TextButtonStyle.class));
                 //*--------------------------------------------------------------------------------------------------------
                 if(enemy.getIsBoss()){
-                    player.addGold(100); //Just more gold and points gained if enemy is a boss.
+                    player.addGold(100); //Just give more gold and points gained if enemy is a boss.
                     player.addPoints(100);
                 } else{
                     //*----------------------------------------------------------------------------------------------------
