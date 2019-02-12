@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="1141">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="1214">
  <tileset firstgid="1" source="rpg-tiles-64.tsx"/>
  <tileset firstgid="261" source="map-tiles-64.tsx"/>
  <layer id="1" name="Water" width="80" height="80">
@@ -9,7 +9,7 @@
  </layer>
  <layer id="2" name="Islands" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer id="3" name="Scenery" width="80" height="80">
@@ -929,6 +929,72 @@
   <object id="1107" name="halifax" x="4132" y="3397.33" width="32" height="17.3333"/>
   <object id="1108" name="halifax" x="4109.33" y="3403.33" width="28.6667" height="15.3333"/>
   <object id="1109" name="halifax" x="4096" y="3410" width="20" height="63.3333"/>
+  <object id="1141" name="rocks" x="201.333" y="272" width="42.6667" height="30.6667"/>
+  <object id="1142" name="rocks" x="585.333" y="145.333" width="45.3333" height="29.3333"/>
+  <object id="1143" name="rocks" x="460" y="401.333" width="42.6667" height="28"/>
+  <object id="1146" name="rocks" x="2126.67" y="205.333" width="37.3333" height="29.3333"/>
+  <object id="1147" name="rocks" x="2313.33" y="396" width="44" height="34.6667"/>
+  <object id="1148" name="rocks" x="2640" y="586.667" width="37.3333" height="34.6667"/>
+  <object id="1149" name="rocks" x="2764" y="1097.33" width="38.6667" height="37.3333"/>
+  <object id="1150" name="rocks" x="3214.67" y="712" width="36" height="44"/>
+  <object id="1151" name="rocks" x="3208" y="778.667" width="46.6667" height="41.3333"/>
+  <object id="1152" name="rocks" x="3334.67" y="712" width="174.667" height="236"/>
+  <object id="1153" name="rocks" x="3272" y="844" width="42.6667" height="169.333"/>
+  <object id="1154" name="rocks" x="3337.33" y="1032" width="41.3333" height="40"/>
+  <object id="1155" name="rocks" x="3524" y="776" width="50.6667" height="106.667"/>
+  <object id="1156" name="rocks" x="4686.67" y="268" width="29.3333" height="100"/>
+  <object id="1157" name="rocks" x="4749.33" y="394.667" width="161.333" height="38.6667"/>
+  <object id="1158" name="rocks" x="4818.67" y="337.333" width="86.6667" height="26.6667"/>
+  <object id="1159" name="rocks" x="4753.33" y="462.667" width="225.333" height="34.6667"/>
+  <object id="1160" name="rocks" x="4877.33" y="526.667" width="33.3333" height="158.667"/>
+  <object id="1161" name="rocks" x="4817.33" y="590.667" width="30.6667" height="158.667"/>
+  <object id="1164" name="rocks" x="4874.67" y="1293.33" width="40" height="37.3333"/>
+  <object id="1165" name="rocks" x="4945.33" y="1358.67" width="34.6667" height="34.6667"/>
+  <object id="1166" name="rocks" x="4870.67" y="1424" width="50.6667" height="33.3333"/>
+  <object id="1167" name="rocks" x="4810.67" y="1489.33" width="45.3333" height="28"/>
+  <object id="1168" name="rocks" x="5004" y="1488" width="42.6667" height="29.3333"/>
+  <object id="1169" name="rocks" x="4940" y="1616" width="40" height="32"/>
+  <object id="1171" name="rocks" x="3342" y="3340" width="34" height="354"/>
+  <object id="1172" name="rocks" x="3272" y="3400" width="44" height="170"/>
+  <object id="1173" name="rocks" x="3402" y="3408" width="40" height="288"/>
+  <object id="1174" name="rocks" x="3466" y="3408" width="38" height="36"/>
+  <object id="1175" name="rocks" x="3472" y="3532" width="28" height="226"/>
+  <object id="1176" name="rocks" x="1872" y="4946" width="350" height="26"/>
+  <object id="1177" name="rocks" x="1990" y="5010" width="298" height="28"/>
+  <object id="1178" name="rocks" x="2262" y="5080" width="24" height="18"/>
+  <object id="1180" name="rocks" x="3846" y="3976" width="44" height="102"/>
+  <object id="1181" name="rocks" x="3914" y="4046" width="38" height="94"/>
+  <object id="1182" name="rocks" x="3982" y="3984" width="36" height="162"/>
+  <object id="1183" name="rocks" x="4040" y="4102" width="40" height="44"/>
+  <object id="1184" name="rocks" x="3270" y="5006" width="242" height="32"/>
+  <object id="1185" name="rocks" x="3408" y="4942" width="30" height="36"/>
+  <object id="1186" name="rocks" x="3344" y="5070" width="100" height="34"/>
+  <object id="1187" name="rocks" x="201.333" y="2700" width="44" height="36"/>
+  <object id="1188" name="rocks" x="201.333" y="2889.33" width="44" height="44"/>
+  <object id="1189" name="rocks" x="270.667" y="2833.33" width="36" height="26.6667"/>
+  <object id="1190" name="rocks" x="330.667" y="2832" width="37.3333" height="30.6667"/>
+  <object id="1191" name="rocks" x="525.333" y="2766.67" width="36" height="96"/>
+  <object id="1192" name="rocks" x="402.667" y="2961.33" width="24" height="26.6667"/>
+  <object id="1193" name="rocks" x="336" y="3026.67" width="30.6667" height="28"/>
+  <object id="1194" name="rocks" x="454.667" y="3086.67" width="49.3333" height="32"/>
+  <object id="1195" name="rocks" x="1612" y="2382" width="32" height="100"/>
+  <object id="1196" name="rocks" x="1678" y="2388" width="32" height="26"/>
+  <object id="1197" name="rocks" x="1618" y="2578" width="88" height="90"/>
+  <object id="1198" name="rocks" x="1742" y="2638" width="36" height="98"/>
+  <object id="1199" name="rocks" x="1796" y="2706" width="46" height="28"/>
+  <object id="1200" name="rocks" x="1616" y="2770" width="24" height="88"/>
+  <object id="1201" name="rocks" x="1680" y="2896" width="28" height="34"/>
+  <object id="1202" name="rocks" x="1424" y="2636" width="26" height="38"/>
+  <object id="1204" name="rocks" x="4871" y="4875" width="43" height="162"/>
+  <object id="1205" name="rocks" x="5010" y="5011" width="31" height="28"/>
+  <object id="1206" name="rocks" x="2954" y="2000" width="103" height="31"/>
+  <object id="1207" name="rocks" x="3276" y="1934" width="36" height="98"/>
+  <object id="1208" name="rocks" x="3092" y="2068" width="152" height="86"/>
+  <object id="1209" name="rocks" x="3025" y="2133" width="87" height="88"/>
+  <object id="1210" name="rocks" x="3022" y="2197" width="37" height="93"/>
+  <object id="1211" name="rocks" x="3146" y="2254" width="105" height="37"/>
+  <object id="1212" name="rocks" x="3219" y="2193" width="26" height="26"/>
+  <object id="1213" name="rocks" x="3275" y="2126" width="43" height="34"/>
  </objectgroup>
  <objectgroup id="7" name="RegionData">
   <object id="721" name="derwentregion" x="434.545" y="3263.58" width="1351.45" height="1856.42"/>

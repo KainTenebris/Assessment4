@@ -60,6 +60,7 @@ public class SailingScreen extends BaseScreen {
 
     private Float timer;
     private Float pointMulti; //added multiplier to increase point gain over time
+    private int goldCounter; //used to add ticking gold for capturing colleges
 	
 	//--------------------------------------------------------------------------------------------------------------------------
     boolean inStorm = false; //*move to top
@@ -159,11 +160,11 @@ public class SailingScreen extends BaseScreen {
                 if (objectName.equals("derwent")) solid.setCollege(Derwent);
                 else if (objectName.equals("james")) solid.setCollege(James);
                 else if (objectName.equals("vanbrugh")) solid.setCollege(Vanbrugh);
-                else if (objectName.equals("halifax")) solid.setCollege(Halifax);
-                else if (objectName.equals("alcuin")) solid.setCollege(Alcuin);
+                else if (objectName.equals("halifax")) solid.setCollege(Halifax); //added for req
+                else if (objectName.equals("alcuin")) solid.setCollege(Alcuin); //added for req
                 else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
                 else if (objectName.equals("physics")) solid.setDepartment(Physics);
-                else if (objectName.equals("philosophy")) solid.setDepartment(Philosophy);
+                else if (objectName.equals("philosophy")) solid.setDepartment(Philosophy); //added for req
                 else{
                     System.out.println("Not college/department: " + solid.getName());
                 }
@@ -199,6 +200,7 @@ public class SailingScreen extends BaseScreen {
 
         timer = 0f;
         pointMulti = 1f;
+        goldCounter = 0;
 
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
@@ -283,7 +285,7 @@ public class SailingScreen extends BaseScreen {
 							if(college.getName().equals("Halifax")){ //Final boss name
                                 System.out.println("Final boss");//
                                 pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Final Boss", true)));//*
-                            } else{
+                            } else {
                                 //*---------------------------------------------------------------------------------------------------------------------------------
                                 System.out.println("Enemy");
                                 pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(8, 8, 8, Brig, college, college.getName() + " Boss", true)));//*
@@ -327,22 +329,35 @@ public class SailingScreen extends BaseScreen {
         if (timer > 1) {
             //changed point gain to have a multiplier which increases on update - more time = higher multiplier
             if (Math.round(pointMulti) < 2) {
-                pointMulti += pointMulti/100;
+                pointMulti += pointMulti/300;
             } else if (Math.round(pointMulti) < 3) {
-                pointMulti += pointMulti/200;
+                pointMulti += pointMulti/500;
             }
             //at maximum multiplier (3) - stops updating
             //*-----------------------------------------------------------------------------------------------------------------------
             if(inStorm){
-                pirateGame.getPlayer().addPoints(1); //bonus point
+                pirateGame.getPlayer().addPoints(Math.round(pointMulti)); //bonus points
             }
             //*-----------------------------------------------------------------------------------------------------------------------
-            pirateGame.getPlayer().addPoints(1);
+            pirateGame.getPlayer().addPoints(Math.round(pointMulti));
             //Could just put something here or elsewhere to do this when in bad weather, get 2 points per timer.
             //Also can do
             //playerShip.setHealth();
             //playerShip.setAccuracy();
             //To negatively affect either/or while they're in bad weather. Note that setting accuracy would have to be fixed when out of bad weather.
+
+            //when you capture colleges you also gain gold. Rate of which dependent on number of colleges
+            //checks to see if more than 1 colleges are allys - if that is the case ticks the gold counter up
+            if (pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size() > 1){
+                goldCounter += 1;
+                //tick rate is dependent on number of colleges - more colleges means higher tick rate
+                if (goldCounter == 5 - pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size()) {
+                    //gold is added and counter is reset when counter reaches some number dependent on size of ally
+                    goldCounter = 0;
+                    pirateGame.getPlayer().setGold(pirateGame.getPlayer().getGold() + 1);
+                }
+            }
+
             timer -= 1;
         }
 

@@ -32,7 +32,7 @@ public class College {
 	public static College Derwent = new College("Derwent");
     public static College Vanbrugh = new College("Vanbrugh");
     public static College James = new College("James");
-    public static College Halifax = new College("Halifax");
-    public static College Alcuin = new College("Alcuin");
+    public static College Halifax = new College("Halifax"); //added to meet requirements
+    public static College Alcuin = new College("Alcuin"); //added to meet requirements
     public static College Storm = new College("Storm"); //*Storm is labelled as a college as colleges have the functionality we need.
 }
