@@ -114,9 +114,9 @@ public class CombatScreen extends BaseScreen {
         //added -------------------------------
         //enemyship first checks whether it is a boss before instantializing the correct enemyShipFile
         String enemyShipFile = "ship2.png"; //defaults to base ship
-        if (enemy.getIsBoss() && enemy.getCollege().equals(Halifax)) { //boss ship
-            enemyShipFile = "fort.png"; //if the ship is a boss and is Halifax uses a special image
-        } else if (enemy.getCollege().equals(Storm)) {//stormy ship
+        if (enemy.getIsBoss()) { //boss ship
+            enemyShipFile = enemy.getCollege().getName().substring(0,3)+"_fort.png"; //if the ship is a boss give it the correct college sprite
+        } else if (enemy.getCollege().equals(Storm)) {//stormy ship - used in storms
             enemyShipFile = "stormy_ship.png";
         }
         //---------------------------------------------

@@ -291,11 +291,11 @@ public class SailingScreen extends BaseScreen {
                             //*Make final boss more difficult than the regular college bosses.
 							if(college.getName().equals("Halifax")){ //Final boss name
                                 System.out.println("Final boss");//
-                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Final Boss", true)));//*
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Fort, college, college.getName() + " Final Boss", true)));//*
                             } else {
                                 //*---------------------------------------------------------------------------------------------------------------------------------
                                 System.out.println("Enemy");
-                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(8, 8, 8, Brig, college, college.getName() + " Boss", true)));//*
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(8, 8, 8, Fort, college, college.getName() + " Boss", true)));//*
                             }
                         } else {
                             System.out.println("Ally");

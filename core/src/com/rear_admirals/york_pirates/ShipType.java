@@ -30,5 +30,6 @@ public class ShipType {
 	// Static Ship Types go here
 //	public static ShipType Sloop = new ShipType("Sloop", 4, 4, 7, 80);
 	public static ShipType Brig = new ShipType("Brig", 5, 5, 5, 100);
+	public static ShipType Fort = new ShipType("Fort",8,8,8,200); //added fort shiptype for bosses
 //	public static ShipType Galleon = new ShipType("Galleon", 6, 6, 3, 120);
 }
