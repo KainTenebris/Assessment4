@@ -106,4 +106,5 @@ public class CollegeScreen extends BaseScreen {
         goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
     }
+
 }

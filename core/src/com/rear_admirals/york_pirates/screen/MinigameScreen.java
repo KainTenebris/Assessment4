@@ -83,13 +83,14 @@ public class MinigameScreen extends BaseScreen{
         });
 
 
+        //initializes data labels
         Label playerIntroLabel = new Label("You:", main.getSkin());
         Label enemyIntroLabel = new Label("Enemy:", main.getSkin());
         Label goldIntroLabel = new Label("Gold: ", main.getSkin());
         gameStateLabel = new Label("No game yet", main.getSkin());
         currentGoldLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin());
 
-
+        //initializes UI tables, uses data labels and buttons
         Table gameTable = new Table();
         gameTable.setFillParent(true);
         gameTable.add(rollDice).uniform().fill().padBottom(viewheight/40).size(viewwidth/2,viewheight/10);
