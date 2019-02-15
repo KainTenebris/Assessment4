@@ -225,7 +225,7 @@ public class CombatScreen extends BaseScreen {
                 break;
             case PLAYER_DIES:
                 textBox.setStyle(pirateGame.getSkin().get("red", TextButton.TextButtonStyle.class));
-                player.addGold(-player.getGold()/2);
+                player.addGold(-player.getGold()/3);
                 player.setPoints(0);
                 player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax()/4);
                 dialog("YOU HAVE DIED", BattleEvent.SCENE_RETURN);
@@ -234,11 +234,11 @@ public class CombatScreen extends BaseScreen {
                 textBox.setStyle(pirateGame.getSkin().get("default", TextButton.TextButtonStyle.class));
                 //*--------------------------------------------------------------------------------------------------------
                 if(enemy.getIsBoss()){
-                    player.addGold(100); //Just give more gold and points gained if enemy is a boss.
+                    player.addGold(250); //Just give more gold and points gained if enemy is a boss.
                     player.addPoints(100);
                 } else{
                     //*----------------------------------------------------------------------------------------------------
-                    player.addGold(35);
+                    player.addGold(50);
                     player.addPoints(30);
                 }
                 dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
