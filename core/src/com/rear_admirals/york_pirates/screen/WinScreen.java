@@ -28,12 +28,33 @@ public class WinScreen extends BaseScreen {
     private Image win;
     private Player player;
 
-    //Displays Win Screen
-    public WinScreen(final PirateGame main){
+    //Displays Win Screen or Lose Screen
+    public WinScreen(final PirateGame main, boolean won){
         super(main);
         player = main.getPlayer();
+        if (won == true){
+            win(main, player);
+        } else {
+            lose(main, player);
+        }
 
-        this.texture = new Texture("win.png");
+
+    }
+
+    //If you lose the game
+    public void lose(final PirateGame main, Player player){
+        this.texture = new Texture("lose.png");
+        win = new Image(texture);
+        win.setSize(viewwidth, viewheight);
+        mainStage.addActor(win);
+
+        Gdx.input.setInputProcessor(mainStage);
+    }
+
+    //If you win the game
+    public void win(final PirateGame main, Player player){
+
+        this.texture = new Texture("Win.png");
         win = new Image(texture);
         win.setSize(viewwidth, viewheight);
         mainStage.addActor(win);
@@ -49,7 +70,6 @@ public class WinScreen extends BaseScreen {
         mainStage.addActor(pointsTable);
 
         Gdx.input.setInputProcessor(mainStage);
-
     }
 
     //Quits game is ESC is pressed

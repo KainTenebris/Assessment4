@@ -88,6 +88,7 @@ public class MainMenu extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 pirateGame.setScreen(new MinigameScreen(pirateGame));
+
                 dispose();
             }
         });
