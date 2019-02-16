@@ -241,7 +241,7 @@ public class SailingScreen extends BaseScreen {
             if (pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size() > 1){
                 goldCounter += 1;
                 //tick rate is dependent on number of colleges - more colleges means higher tick rate
-                if (goldCounter == 5 - pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size()) {
+                if (goldCounter == 6 - pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size()) {
                     //gold is added and counter is reset when counter reaches some number dependent on size of ally
                     goldCounter = 0;
                     pirateGame.getPlayer().setGold(pirateGame.getPlayer().getGold() + 1);
