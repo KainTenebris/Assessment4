@@ -71,9 +71,9 @@ public class MinigameScreen extends BaseScreen{
                         rollDice.setText("SELL SOUL");
                         sellSoulStage += 1;
                     } else if (sellSoulStage == 2){
-                        while (main.getPlayer().getGold() != 100){
-                            sellSoul(pirateGame, ceelo, rollDice);
-                        }
+//                        while (main.getPlayer().getGold() != 100){
+                        sellSoul(pirateGame, ceelo, rollDice);
+//                        }
                         rollDice.setText("10 Gold to Roll Dice");
                         sellSoulStage = 0;
                     }
@@ -132,11 +132,11 @@ public class MinigameScreen extends BaseScreen{
         gameStateLabel.setText(gameState);
         setDiceImages(playerdice,enemydice);
         if (gameState == "Lost"){
-            Gdx.app.exit();
+            pirateGame.setScreen(new WinScreen(pirateGame, false));
         } else if (gameState == "Won"){
             player.setGold(100);
         }  else {
-
+            sellSoul(pirateGame, ceelo, diceButton);
         }
         currentGoldLabel.setText(Integer.toString(main.getPlayer().getGold()));
         diceButton.setText("10 Gold to Roll dice");

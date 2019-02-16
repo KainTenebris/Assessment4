@@ -247,7 +247,7 @@ public class CombatScreen extends BaseScreen {
                     this.player.getPlayerShip().getCollege().addAlly(this.enemy.getCollege());
                     //Win game if you defeat final boss
                     if (this.player.getPlayerShip().getCollege().getAlly().contains(College.Halifax)){
-                        pirateGame.setScreen(new WinScreen(pirateGame));
+                        pirateGame.setScreen(new WinScreen(pirateGame, true));
                     }
                 }
                 break;
