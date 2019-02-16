@@ -28,12 +28,51 @@ public class WinScreen extends BaseScreen {
     private Image win;
     private Player player;
 
-    //Displays Win Screen
-    public WinScreen(final PirateGame main){
+    //Displays Win Screen or Lose Screen
+    public WinScreen(final PirateGame main, boolean won){
         super(main);
         player = main.getPlayer();
+//        System.out.println("END OF COMBAT");
+        if (won == true){
+            win(main, player);
 
-        this.texture = new Texture("win.png");
+//            this.texture = new Texture("Win.png");
+//            win = new Image(texture);
+//            win.setSize(viewwidth, viewheight);
+//            mainStage.addActor(win);
+//
+//            //Displays points obtained
+//            Table pointsTable = new Table();
+//            Label pointsLabel = new Label("Your points were ",main.getSkin());
+//            Label numPointsLabel = new Label(Integer.toString(this.player.getPoints()), main.getSkin());
+//            pointsTable.add(pointsLabel);
+//            pointsTable.add(numPointsLabel).width(pointsLabel.getWidth());
+//            pointsTable.align(Align.topLeft);
+//            pointsTable.setFillParent(true);
+//            mainStage.addActor(pointsTable);
+//
+//            Gdx.input.setInputProcessor(mainStage);
+        } else {
+            lose(main, player);
+        }
+
+
+    }
+
+    //If you lose the game
+    public void lose(final PirateGame main, Player player){
+        this.texture = new Texture("lose.png");
+        win = new Image(texture);
+        win.setSize(viewwidth, viewheight);
+        mainStage.addActor(win);
+
+        Gdx.input.setInputProcessor(mainStage);
+    }
+
+    //If you win the game
+    public void win(final PirateGame main, Player player){
+
+        this.texture = new Texture("Win.png");
         win = new Image(texture);
         win.setSize(viewwidth, viewheight);
         mainStage.addActor(win);
@@ -49,7 +88,6 @@ public class WinScreen extends BaseScreen {
         mainStage.addActor(pointsTable);
 
         Gdx.input.setInputProcessor(mainStage);
-
     }
 
     //Quits game is ESC is pressed

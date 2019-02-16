@@ -23,6 +23,7 @@ import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.rear_admirals.york_pirates.College.Halifax;
+import static com.rear_admirals.york_pirates.College.Storm;
 
 public class CombatScreen extends BaseScreen {
 
@@ -84,142 +85,12 @@ public class CombatScreen extends BaseScreen {
 
         combatStack = new Stack();
 
-        // Sets size constants for the scene depending on viewport, also sets button padding constants for use in tables
-        button_pad_bottom = viewheight/24f;
-        button_pad_right = viewwidth/32f;
-
-        // Insantiate the image textures for use within the scene as backgrounds.
-        bg_texture = new Texture("water_texture_sky.png");
-        background = new Image(bg_texture);
-        background.setSize(viewwidth, viewheight);
-
-        wood_texture = new Texture("wood_vertical_board_texture.png");
-        background_wood = new Image(wood_texture);
-        background_wood.setSize(viewwidth, viewheight);
-
-        // Create a Container which takes up the whole screen (used for layout purposes)
-        tableContainer = new Container<Table>();
-        tableContainer.setFillParent(true);
-        tableContainer.setPosition(0,0);
-        tableContainer.align(Align.bottom);
-
-        // Instantiate some different tables used throughout scene
-        rootTable = new Table();
-        descriptionTable = new Table();
-        attackTable = new Table();
-
-        // Instantiate both the ships for the battle
-        CombatShip myShip = new CombatShip("ship1.png", viewwidth/3);
-        //enemyship first checks whether it is a boss before instantializing the correct enemyShipFile
-        String enemyShipFile = "ship2.png"; //defaults to base ship
-        if (enemy.getIsBoss() && enemy.getCollege().equals(Halifax)) {
-            enemyShipFile = "fort.png"; //if the ship is a boss and is Halifax uses a special image
-        }
-        CombatShip enemyShip = new CombatShip(enemyShipFile,viewwidth/3);
-
-        Label shipName = new Label(player.getPlayerShip().getName(),pirateGame.getSkin(), "default_black");
-        playerHP = new ProgressBar(0, player.getPlayerShip().getHealthMax(),0.1f,false,pirateGame.getSkin());
-        playerHPLabel = new Label(player.getPlayerShip().getHealth()+"/" + player.getPlayerShip().getHealthMax(), pirateGame.getSkin());
-
-        playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
-        playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
-
-        Label enemyName = new Label(enemy.getName(), pirateGame.getSkin(),"default_black");
-        enemyHP = new ProgressBar(0, enemy.getHealthMax(),0.1f,false,pirateGame.getSkin());
-        enemyHPLabel = new Label(enemy.getHealth()+"/" + enemy.getHealthMax(), pirateGame.getSkin());
-
-        playerHP.setValue(player.getPlayerShip().getHealthMax());
-        enemyHP.setValue(enemy.getHealthMax());
-
-        Table playerHPTable = new Table();
-        Table enemyHPTable = new Table();
-
-        playerHPTable.add(playerHPLabel).padRight(viewwidth/36f);
-        playerHPTable.add(playerHP).width(viewwidth/5);
-
-        enemyHPTable.add(enemyHPLabel).padRight(viewwidth/36f);
-        enemyHPTable.add(enemyHP).width(viewwidth/5);
-
-        Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
-        screenTitle.setAlignment(Align.center);
-
-        textBox = new TextButton("You encountered a "+enemy.getCollege().getName()+" "+enemy.getType()+"!", pirateGame.getSkin());
-        textBox.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (textAnimation) {
-                    textAnimation = false;
-                    textBox.setText(displayText);
-                } else {
-                    System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
-                    textBox.setText("");
-                    updateHP();
-                    combatHandler(queuedCombatEvent);
-                }
-            }
-        });
+        //loads in graphical elements
+        graphicInit();
 
         // Control combat
         this.queuedCombatEvent = BattleEvent.NONE;
         currentAttack = null;
-
-        // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified within player class.
-        final AttackButton button1 = new AttackButton(Attack.attackMain, pirateGame.getSkin());
-        buttonListener(button1);
-        final AttackButton button2 = new AttackButton(player.attacks.get(0), pirateGame.getSkin());
-        buttonListener(button2);
-        final AttackButton button3 = new AttackButton(player.attacks.get(1), pirateGame.getSkin());
-        buttonListener(button3);
-        final AttackButton button4 = new AttackButton(player.attacks.get(2), pirateGame.getSkin());
-        buttonListener(button4);
-        final AttackButton fleeButton = new AttackButton(Flee.attackFlee, pirateGame.getSkin(), "red");
-        buttonListener(fleeButton);
-
-        descriptionLabel = new Label("What would you like to do?", pirateGame.getSkin());
-        descriptionLabel.setWrap(true);
-        descriptionLabel.setAlignment(Align.center);
-
-        descriptionTable.center();
-        descriptionTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(viewwidth/2 - button_pad_right*2, viewheight/12).top();
-        descriptionTable.row();
-        descriptionTable.add(fleeButton).uniform();
-
-        attackTable.row();
-        attackTable.add(button1).uniform().width(viewwidth/5).padRight(button_pad_right);
-        attackTable.add(button2).uniform().width(viewwidth/5);
-        attackTable.row().padTop(button_pad_bottom);
-        attackTable.add(button3).uniform().width(viewwidth/5).padRight(button_pad_right);
-        attackTable.add(button4).uniform().width(viewwidth/5);
-
-        rootTable.row().width(viewwidth*0.8f);
-        rootTable.add(screenTitle).colspan(2);
-        rootTable.row();
-        rootTable.add(shipName);
-        rootTable.add(enemyName);
-        rootTable.row().fillX();
-        rootTable.add(myShip);
-        rootTable.add(enemyShip);
-        rootTable.row();
-        rootTable.add(playerHPTable);
-        rootTable.add(enemyHPTable);
-        rootTable.row();
-        rootTable.add(textBox).colspan(2).fillX().height(viewheight/9f).pad(viewheight/12,0,viewheight/12,0);
-        tableContainer.setActor(rootTable);
-
-        completeAttackTable = new Table();
-        completeAttackTable.setFillParent(true);
-        completeAttackTable.align(Align.bottom);
-        completeAttackTable.row().expandX().padBottom(viewheight/18f);
-        completeAttackTable.add(descriptionTable).width(viewwidth/2);
-        completeAttackTable.add(attackTable).width(viewwidth/2);
-
-        background_wood.setVisible(false);
-        completeAttackTable.setVisible(false);
-        mainStage.addActor(background_wood);
-        mainStage.addActor(completeAttackTable);
-
-        uiStage.addActor(background);
-        uiStage.addActor(tableContainer);
 
         // Setup Enemy attacks - may need to be modified if you want to draw attacks from enemy's class
         enemyAttacks = new ArrayList<Attack>();
@@ -227,6 +98,7 @@ public class CombatScreen extends BaseScreen {
         enemyAttacks.add(GrapeShot.attackGrape);
         enemyAttacks.add(Attack.attackSwivel);
 
+        //allows for inputs to actually be processed on this screen
         Gdx.input.setInputProcessor(uiStage);
 
         System.out.println(viewwidth + "," + viewheight + " AND " + Gdx.graphics.getWidth() + "," + Gdx.graphics.getHeight());
@@ -353,22 +225,29 @@ public class CombatScreen extends BaseScreen {
                 break;
             case PLAYER_DIES:
                 textBox.setStyle(pirateGame.getSkin().get("red", TextButton.TextButtonStyle.class));
-                player.addGold(-player.getGold()/2);
+                player.addGold(-player.getGold()/3);
                 player.setPoints(0);
                 player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax()/4);
                 dialog("YOU HAVE DIED", BattleEvent.SCENE_RETURN);
                 break;
             case ENEMY_DIES:
                 textBox.setStyle(pirateGame.getSkin().get("default", TextButton.TextButtonStyle.class));
-                player.addGold(20);
-                player.addPoints(20);
+                //*--------------------------------------------------------------------------------------------------------
+                if(enemy.getIsBoss()){
+                    player.addGold(250); //Just give more gold and points gained if enemy is a boss.
+                    player.addPoints(100);
+                } else{
+                    //*----------------------------------------------------------------------------------------------------
+                    player.addGold(50);
+                    player.addPoints(30);
+                }
                 dialog("Congratulations, you have defeated Enemy " + enemy.getName(), BattleEvent.SCENE_RETURN);
                 if (enemy.getIsBoss() == true) {
                     enemy.getCollege().setBossDead(true);
                     this.player.getPlayerShip().getCollege().addAlly(this.enemy.getCollege());
                     //Win game if you defeat final boss
                     if (this.player.getPlayerShip().getCollege().getAlly().contains(College.Halifax)){
-                        pirateGame.setScreen(new WinScreen(pirateGame));
+                        pirateGame.setScreen(new WinScreen(pirateGame, true));
                     }
                 }
                 break;
@@ -478,6 +357,152 @@ public class CombatScreen extends BaseScreen {
                 delayTime = 0;
             }
         }
+    }
+
+    //contains graphical procedures used in constructor
+    private void graphicInit(){
+
+        // Sets size constants for the scene depending on viewport, also sets button padding constants for use in tables
+        button_pad_bottom = viewheight/24f;
+        button_pad_right = viewwidth/32f;
+
+        // Insantiate the image textures for use within the scene as backgrounds.
+        bg_texture = new Texture("water_texture_sky.png");
+        background = new Image(bg_texture);
+        background.setSize(viewwidth, viewheight);
+
+        wood_texture = new Texture("wood_vertical_board_texture.png");
+        background_wood = new Image(wood_texture);
+        background_wood.setSize(viewwidth, viewheight);
+
+        // Create a Container which takes up the whole screen (used for layout purposes)
+        tableContainer = new Container<Table>();
+        tableContainer.setFillParent(true);
+        tableContainer.setPosition(0,0);
+        tableContainer.align(Align.bottom);
+
+        // Instantiate some different tables used throughout scene
+        rootTable = new Table();
+        descriptionTable = new Table();
+        attackTable = new Table();
+
+        // Instantiate both the ships for the battle
+        CombatShip myShip = new CombatShip("ship1.png", viewwidth/3);
+        CombatShip enemyShip = new CombatShip(giveEnemyShipSprite(),viewwidth/3); //changed to include function determining string
+
+        Label shipName = new Label(player.getPlayerShip().getName(),pirateGame.getSkin(), "default_black");
+        playerHP = new ProgressBar(0, player.getPlayerShip().getHealthMax(),0.1f,false,pirateGame.getSkin());
+        playerHPLabel = new Label(player.getPlayerShip().getHealth()+"/" + player.getPlayerShip().getHealthMax(), pirateGame.getSkin());
+
+        playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
+        playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
+
+        Label enemyName = new Label(enemy.getName(), pirateGame.getSkin(),"default_black");
+        enemyHP = new ProgressBar(0, enemy.getHealthMax(),0.1f,false,pirateGame.getSkin());
+        enemyHPLabel = new Label(enemy.getHealth()+"/" + enemy.getHealthMax(), pirateGame.getSkin());
+
+        playerHP.setValue(player.getPlayerShip().getHealthMax());
+        enemyHP.setValue(enemy.getHealthMax());
+
+        Table playerHPTable = new Table();
+        Table enemyHPTable = new Table();
+
+        playerHPTable.add(playerHPLabel).padRight(viewwidth/36f);
+        playerHPTable.add(playerHP).width(viewwidth/5);
+
+        enemyHPTable.add(enemyHPLabel).padRight(viewwidth/36f);
+        enemyHPTable.add(enemyHP).width(viewwidth/5);
+
+        Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
+        screenTitle.setAlignment(Align.center);
+
+        textBox = new TextButton("You encountered a "+enemy.getCollege().getName()+" "+enemy.getType()+"!", pirateGame.getSkin());
+        textBox.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (textAnimation) {
+                    textAnimation = false;
+                    textBox.setText(displayText);
+                } else {
+                    System.out.println("Button clicked, running combat handler with event " + queuedCombatEvent.toString());
+                    textBox.setText("");
+                    updateHP();
+                    combatHandler(queuedCombatEvent);
+                }
+            }
+        });
+
+        // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified within player class.
+        final AttackButton button1 = new AttackButton(Attack.attackMain, pirateGame.getSkin());
+        buttonListener(button1);
+        final AttackButton button2 = new AttackButton(player.attacks.get(0), pirateGame.getSkin());
+        buttonListener(button2);
+        final AttackButton button3 = new AttackButton(player.attacks.get(1), pirateGame.getSkin());
+        buttonListener(button3);
+        final AttackButton button4 = new AttackButton(player.attacks.get(2), pirateGame.getSkin());
+        buttonListener(button4);
+        final AttackButton fleeButton = new AttackButton(Flee.attackFlee, pirateGame.getSkin(), "red");
+        buttonListener(fleeButton);
+
+        descriptionLabel = new Label("What would you like to do?", pirateGame.getSkin());
+        descriptionLabel.setWrap(true);
+        descriptionLabel.setAlignment(Align.center);
+
+        descriptionTable.center();
+        descriptionTable.add(descriptionLabel).uniform().pad(0,button_pad_right,0,button_pad_right).size(viewwidth/2 - button_pad_right*2, viewheight/12).top();
+        descriptionTable.row();
+        descriptionTable.add(fleeButton).uniform();
+
+        attackTable.row();
+        attackTable.add(button1).uniform().width(viewwidth/5).padRight(button_pad_right);
+        attackTable.add(button2).uniform().width(viewwidth/5);
+        attackTable.row().padTop(button_pad_bottom);
+        attackTable.add(button3).uniform().width(viewwidth/5).padRight(button_pad_right);
+        attackTable.add(button4).uniform().width(viewwidth/5);
+
+        rootTable.row().width(viewwidth*0.8f);
+        rootTable.add(screenTitle).colspan(2);
+        rootTable.row();
+        rootTable.add(shipName);
+        rootTable.add(enemyName);
+        rootTable.row().fillX();
+        rootTable.add(myShip);
+        rootTable.add(enemyShip);
+        rootTable.row();
+        rootTable.add(playerHPTable);
+        rootTable.add(enemyHPTable);
+        rootTable.row();
+        rootTable.add(textBox).colspan(2).fillX().height(viewheight/9f).pad(viewheight/12,0,viewheight/12,0);
+        tableContainer.setActor(rootTable);
+
+        completeAttackTable = new Table();
+        completeAttackTable.setFillParent(true);
+        completeAttackTable.align(Align.bottom);
+        completeAttackTable.row().expandX().padBottom(viewheight/18f);
+        completeAttackTable.add(descriptionTable).width(viewwidth/2);
+        completeAttackTable.add(attackTable).width(viewwidth/2);
+
+        background_wood.setVisible(false);
+        completeAttackTable.setVisible(false);
+        mainStage.addActor(background_wood);
+        mainStage.addActor(completeAttackTable);
+
+        uiStage.addActor(background);
+        uiStage.addActor(tableContainer);
+
+    }
+
+    //determines what sprite the enemy ship uses
+    public String giveEnemyShipSprite(){
+        //enemyship first checks whether it is a boss before instantializing the correct enemyShipFile
+        String enemyShipFile = "ship2.png"; //defaults to base ship
+        if (enemy.getIsBoss()) { //boss ship
+            enemyShipFile = enemy.getCollege().getName().substring(0,3)+"_fort.png"; //if the ship is a boss give it the correct college sprite
+        } else if (enemy.getCollege().equals(Storm)) {//stormy ship - used in storms
+            enemyShipFile = "stormy_ship.png";
+        }
+
+        return enemyShipFile;
     }
 }
 

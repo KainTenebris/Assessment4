@@ -54,11 +54,19 @@ public class SailingScreen extends BaseScreen {
 
     private Label pointsLabel;
     private Label goldLabel;
+    private Label healthLabel;//*Adding HP points to UI so they can see damage taken in storm
     private Label mapMessage;
     private Label hintMessage;
 
     private Float timer;
     private Float pointMulti; //added multiplier to increase point gain over time
+    private int goldCounter; //used to add ticking gold for capturing colleges
+	
+	//--------------------------------------------------------------------------------------------------------------------------
+    boolean inStorm = false; //*If the ship is in a storm.
+	int weatherTimer = 0; //Timer to see how long ship was in storm for damage.
+    //--------------------------------------------------------------------------------------------------------------------------
+
 
     public SailingScreen(final PirateGame main){
         super(main);
@@ -69,121 +77,18 @@ public class SailingScreen extends BaseScreen {
         mainStage.addActor(playerShip);
         System.out.println("playerShip added");
 
-        Table uiTable = new Table();
+        //inits UI table
+        initUItable(main);
 
-        Label pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
-        pointsLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
-        pointsLabel.setAlignment(Align.left);
+        //inits message table
+        initMessTable(main);
 
-        Label goldTextLabel = new Label("Gold:", main.getSkin(),"default_black");
-        goldLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
-        goldLabel.setAlignment(Align.left);
-
-        uiTable.add(pointsTextLabel);
-        uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
-        uiTable.row();
-        uiTable.add(goldTextLabel).fill();
-        uiTable.add(goldLabel).fill();
-
-        uiTable.align(Align.topRight);
-        uiTable.setFillParent(true);
-
-        uiStage.addActor(uiTable);
-
-        mapMessage = new Label("", main.getSkin(), "default_black");
-        hintMessage = new Label("", main.getSkin(),"default_black");
-
-        Table messageTable = new Table();
-        messageTable.add(mapMessage);
-        messageTable.row();
-        messageTable.add(hintMessage);
-
-        messageTable.setFillParent(true);
-        messageTable.top();
-
-        uiStage.addActor(messageTable);
-
-        obstacleList = new ArrayList<BaseActor>();
-        removeList = new ArrayList<BaseActor>();
-        regionList = new ArrayList<BaseActor>();
-
-        // set up tile map, renderer and camera
-        tiledMap = new TmxMapLoader().load("game_map.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        tiledCamera = new OrthographicCamera();
-        tiledCamera.setToOrtho(false, viewwidth, viewheight);
-        tiledCamera.update();
-
-        MapObjects objects = tiledMap.getLayers().get("ObjectData").getObjects();
-        for (MapObject object : objects) {
-            String name = object.getName();
-
-            // all object data assumed to be stored as rectangles
-            RectangleMapObject rectangleObject = (RectangleMapObject)object;
-            Rectangle r = rectangleObject.getRectangle();
-
-            if (name.equals("player")){
-                playerShip.setPosition(r.x, r.y);
-            } else{
-                System.err.println("Unknown tilemap object: " + name);
-            }
-        }
-
-        objects = tiledMap.getLayers().get("PhysicsData").getObjects();
-        for (MapObject object : objects) {
-            if (object instanceof RectangleMapObject) {
-                RectangleMapObject rectangleObject = (RectangleMapObject) object;
-                Rectangle r = rectangleObject.getRectangle();
-
-                BaseActor solid = new BaseActor();
-                solid.setPosition(r.x, r.y);
-                solid.setSize(r.width, r.height);
-                solid.setName(object.getName());
-                solid.setRectangleBoundary();
-                String objectName = object.getName();
-
-                if (objectName.equals("derwent")) solid.setCollege(Derwent);
-                else if (objectName.equals("james")) solid.setCollege(James);
-                else if (objectName.equals("vanbrugh")) solid.setCollege(Vanbrugh);
-                else if (objectName.equals("halifax")) solid.setCollege(Halifax);
-                else if (objectName.equals("alcuin")) solid.setCollege(Alcuin);
-                else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
-                else if (objectName.equals("physics")) solid.setDepartment(Physics);
-                else if (objectName.equals("philosophy")) solid.setDepartment(Philosophy);
-                else{
-                    System.out.println("Not college/department: " + solid.getName());
-                }
-                obstacleList.add(solid);
-            } else {
-                System.err.println("Unknown PhysicsData object.");
-            }
-        }
-
-        objects = tiledMap.getLayers().get("RegionData").getObjects();
-        for (MapObject object : objects) {
-            if (object instanceof RectangleMapObject) {
-                RectangleMapObject rectangleObject = (RectangleMapObject) object;
-                Rectangle r = rectangleObject.getRectangle();
-
-                BaseActor region = new BaseActor();
-                region.setPosition(r.x, r.y);
-                region.setSize(r.width, r.height);
-                region.setRectangleBoundary();
-                region.setName(object.getName());
-
-                if (object.getName().equals("derwentregion")) region.setCollege(Derwent);
-                else if (object.getName().equals("jamesregion")) region.setCollege(James);
-                else if (object.getName().equals("vanbrughregion")) region.setCollege(Vanbrugh);
-                else if (object.getName().equals("halifaxregion")) region.setCollege(Halifax);
-                else if (object.getName().equals("alcuinregion")) region.setCollege(Alcuin);
-                regionList.add(region);
-            } else {
-                System.err.println("Unknown RegionData object.");
-            }
-        }
+        //inits tileMap (including relevant objeccts such as college/rock hitboxes, regions and the playerShip)
+        initTileMap(main);
 
         timer = 0f;
         pointMulti = 1f;
+        goldCounter = 0;
 
         InputMultiplexer im = new InputMultiplexer(uiStage, mainStage);
         Gdx.input.setInputProcessor(im);
@@ -204,7 +109,32 @@ public class SailingScreen extends BaseScreen {
             if (playerShip.overlaps(region, false)) {
                 x = true;
                 mapMessage.setText(capitalizeFirstLetter(name.substring(0, name.length() - 6)) + " Territory");
-                int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
+                //*---------------------------------------------------------------------------------------------------------------
+				//We will put bad weather down as a region as we don't want it to be something that the player can intereact with, etc
+                //And it also opens up the opportunity for us to use the random enemy encounters to make a bad weather related enemy encounter.
+                //Also displays on the UI what region they're in, helping them know if they're still in the storm.
+                if(name.equals("stormyregion")){
+                    weatherTimer++; //Time in storm increased
+                    inStorm = true; //Used to affect point bonus at the bottom of code.
+                    if (weatherTimer >= 30){ //After certain point
+                        if(playerShip.getHealth()> (playerShip.getHealthMax()/4)){
+                            playerShip.setHealth(playerShip.getHealth() - 1); //Can't die from bad weather, only get down to 1/4 of max HP
+                        }
+                        weatherTimer = 0;
+                    }
+                } else{
+                    if(inStorm){
+                        //Set it all to zero/false when out of storm, if boolean value still says they're in storm.
+						inStorm = false;
+						weatherTimer = 0;
+					}
+
+                }
+				//*End weather stuff here------------------------------------------------------------------------------------------
+				
+				
+				
+				int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
                 if (enemyChance <= 10) {
                     System.out.println("Enemy Found in " + name);
                     College college = region.getCollege();
@@ -245,8 +175,16 @@ public class SailingScreen extends BaseScreen {
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
                         System.out.println("A college");
                         if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
-                            System.out.println("Enemy");
-                            pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
+                            //*-----------------------------------------------------------------------------------------------------------------------------------
+                            //*Make final boss more difficult than the regular college bosses.
+							if(college.getName().equals("Halifax")){ //Final boss name
+                                System.out.println("Final boss");//
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Fort, college, college.getName() + " Final Boss", true)));//*
+                            } else {
+                                //*---------------------------------------------------------------------------------------------------------------------------------
+                                System.out.println("Enemy");
+                                pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(8, 8, 8, Fort, college, college.getName() + " Boss", true)));//*
+                            }
                         } else {
                             System.out.println("Ally");
                             pirateGame.setScreen(new CollegeScreen(pirateGame, college));
@@ -286,16 +224,35 @@ public class SailingScreen extends BaseScreen {
         if (timer > 1) {
             //changed point gain to have a multiplier which increases on update - more time = higher multiplier
             if (Math.round(pointMulti) < 2) {
-                pointMulti += pointMulti/100;
+                pointMulti += pointMulti/300;
             } else if (Math.round(pointMulti) < 3) {
-                pointMulti += pointMulti/200;
+                pointMulti += pointMulti/500;
             }
             //at maximum multiplier (3) - stops updating
-            pirateGame.getPlayer().addPoints(Math.round(1 * pointMulti));
+            //*-----------------------------------------------------------------------------------------------------------------------
+            if(inStorm){
+                pirateGame.getPlayer().addPoints(Math.round(pointMulti)); //bonus points
+            }
+            //*-----------------------------------------------------------------------------------------------------------------------
+            pirateGame.getPlayer().addPoints(Math.round(pointMulti));
+
+            //when you capture colleges you also gain gold. Rate of which dependent on number of colleges
+            //checks to see if more than 1 colleges are allys - if that is the case ticks the gold counter up
+            if (pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size() > 1){
+                goldCounter += 1;
+                //tick rate is dependent on number of colleges - more colleges means higher tick rate
+                if (goldCounter == 5 - pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size()) {
+                    //gold is added and counter is reset when counter reaches some number dependent on size of ally
+                    goldCounter = 0;
+                    pirateGame.getPlayer().setGold(pirateGame.getPlayer().getGold() + 1);
+                }
+            }
+
             timer -= 1;
         }
 
         pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
+        healthLabel.setText(Integer.toString(playerShip.getHealth()));//*
     }
 
     @Override
@@ -336,4 +293,156 @@ public class SailingScreen extends BaseScreen {
         }
         return original.substring(0, 1).toUpperCase() + original.substring(1);
     }
+
+    //initializes UI table
+    public void initUItable(PirateGame main){
+        Table uiTable = new Table();
+
+        Label pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
+        pointsLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
+        pointsLabel.setAlignment(Align.left);
+
+        Label goldTextLabel = new Label("Gold:", main.getSkin(),"default_black");
+        goldLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
+        goldLabel.setAlignment(Align.left);
+
+        Label healthTextLabel = new Label("Health:", main.getSkin(),"default_black");//*
+        healthLabel = new Label(Integer.toString(playerShip.getHealth()), main.getSkin(), "default_black");//*
+        healthLabel.setAlignment(Align.left);//*
+
+        uiTable.add(pointsTextLabel);
+        uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
+        uiTable.row();
+        uiTable.add(goldTextLabel).fill();
+        uiTable.add(goldLabel).fill();
+        //---------------------------------------------------------------------------------------------------------------------
+        uiTable.add(healthTextLabel).fill();//*Just adding HP to UI
+        uiTable.add(healthLabel).fill();//*
+        //---------------------------------------------------------------------------------------------------------------------
+        uiTable.align(Align.topRight);
+        uiTable.setFillParent(true);
+
+        uiStage.addActor(uiTable);
+    }
+
+    public void initMessTable(PirateGame main){
+
+        mapMessage = new Label("", main.getSkin(), "default_black");
+        hintMessage = new Label("", main.getSkin(),"default_black");
+
+        Table messageTable = new Table();
+        messageTable.add(mapMessage);
+        messageTable.row();
+        messageTable.add(hintMessage);
+
+        messageTable.setFillParent(true);
+        messageTable.top();
+
+        uiStage.addActor(messageTable);
+    }
+
+    public void initTileMap(PirateGame main){
+        obstacleList = new ArrayList<BaseActor>();
+        removeList = new ArrayList<BaseActor>();
+        regionList = new ArrayList<BaseActor>();
+
+        // set up tile map, renderer and camera
+        tiledMap = new TmxMapLoader().load("game_map.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        tiledCamera = new OrthographicCamera();
+        tiledCamera.setToOrtho(false, viewwidth, viewheight);
+        tiledCamera.update();
+
+        MapObjects objects = tiledMap.getLayers().get("ObjectData").getObjects();
+        //test player - identifies where the player hitbox is and sets the playerShip position to it
+        findPlayer(objects);
+
+        //maps hitboxes to the appropriate college and sets the hitboxes as a solid
+        objects = tiledMap.getLayers().get("PhysicsData").getObjects();
+        setCollegeHitboxes(objects);
+
+        //sets the regions for relevant colleges/bad weather
+        objects = tiledMap.getLayers().get("RegionData").getObjects();
+        setRegions(objects);
+
+    }
+
+    //Find player and sets playerShip position
+    public void findPlayer(MapObjects objects){
+        //makes every object a RectangleMapObject and sets the starting position of the player ship
+        for (MapObject object : objects) {
+            String name = object.getName();
+
+            // all object data assumed to be stored as rectangles - used to set position of playerShip
+            RectangleMapObject rectangleObject = (RectangleMapObject)object;
+            Rectangle r = rectangleObject.getRectangle();
+
+            //if it is the player put the playerShip in the relevant starting position
+            if (name.equals("player")){
+                playerShip.setPosition(r.x, r.y);
+            } else{
+                System.err.println("Unknown tilemap object: " + name);
+            }
+        }
+    }
+
+    //looks at all PhysicsObjects and maps it to a relevant college - or ignores in the case of rocks
+    public void setCollegeHitboxes(MapObjects objects){
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                Rectangle r = rectangleObject.getRectangle();
+
+                BaseActor solid = new BaseActor();
+                solid.setPosition(r.x, r.y);
+                solid.setSize(r.width, r.height);
+                solid.setName(object.getName());
+                solid.setRectangleBoundary();
+                String objectName = object.getName();
+
+                if (objectName.equals("derwent")) solid.setCollege(Derwent);
+                else if (objectName.equals("james")) solid.setCollege(James);
+                else if (objectName.equals("vanbrugh")) solid.setCollege(Vanbrugh);
+                else if (objectName.equals("halifax")) solid.setCollege(Halifax); //added for req
+                else if (objectName.equals("alcuin")) solid.setCollege(Alcuin); //added for req
+                else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
+                else if (objectName.equals("physics")) solid.setDepartment(Physics);
+                else if (objectName.equals("philosophy")) solid.setDepartment(Philosophy); //added for req
+                else if (objectName.equals("rocks")) ;//ignores rocks
+                else{
+                    System.out.println("Not college/department: " + solid.getName());
+                }
+                obstacleList.add(solid);
+            } else {
+                System.err.println("Unknown PhysicsData object.");
+            }
+        }
+    }
+
+    //sets the regions the player can sail in - no region = neutral region. Includes bad weather
+    public void setRegions(MapObjects objects){
+        for (MapObject object : objects) {
+            if (object instanceof RectangleMapObject) {
+                RectangleMapObject rectangleObject = (RectangleMapObject) object;
+                Rectangle r = rectangleObject.getRectangle();
+
+                BaseActor region = new BaseActor();
+                region.setPosition(r.x, r.y);
+                region.setSize(r.width, r.height);
+                region.setRectangleBoundary();
+                region.setName(object.getName());
+
+                if (object.getName().equals("derwentregion")) region.setCollege(Derwent);
+                else if (object.getName().equals("jamesregion")) region.setCollege(James);
+                else if (object.getName().equals("vanbrughregion")) region.setCollege(Vanbrugh);
+                else if (object.getName().equals("halifaxregion")) region.setCollege(Halifax);
+                else if (object.getName().equals("alcuinregion")) region.setCollege(Alcuin);
+                else if (object.getName().equals("stormyregion")) region.setCollege(Storm);//*Adding storm region to the map. Set as colleges as they have the functionality we need.
+                regionList.add(region);
+            } else {
+                System.err.println("Unknown RegionData object.");
+            }
+        }
+    }
+
 }
