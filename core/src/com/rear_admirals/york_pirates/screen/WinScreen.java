@@ -32,26 +32,8 @@ public class WinScreen extends BaseScreen {
     public WinScreen(final PirateGame main, boolean won){
         super(main);
         player = main.getPlayer();
-//        System.out.println("END OF COMBAT");
         if (won == true){
             win(main, player);
-
-//            this.texture = new Texture("Win.png");
-//            win = new Image(texture);
-//            win.setSize(viewwidth, viewheight);
-//            mainStage.addActor(win);
-//
-//            //Displays points obtained
-//            Table pointsTable = new Table();
-//            Label pointsLabel = new Label("Your points were ",main.getSkin());
-//            Label numPointsLabel = new Label(Integer.toString(this.player.getPoints()), main.getSkin());
-//            pointsTable.add(pointsLabel);
-//            pointsTable.add(numPointsLabel).width(pointsLabel.getWidth());
-//            pointsTable.align(Align.topLeft);
-//            pointsTable.setFillParent(true);
-//            mainStage.addActor(pointsTable);
-//
-//            Gdx.input.setInputProcessor(mainStage);
         } else {
             lose(main, player);
         }

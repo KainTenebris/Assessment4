@@ -5,31 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05a28b81-0601-4b5a-ba1a-12f77e6fe763" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/assets/lose.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileContent/annotation-processors.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileContent/annotation-processors.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileContent/fileContent.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/Department.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/Department.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/screen/MinigameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/screen/MinigameScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/screen/WinScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/screen/WinScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/screen/combat/CombatScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/com/rear_admirals/york_pirates/screen/combat/CombatScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/Department.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/Department.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/screen/MinigameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/screen/MinigameScreen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/screen/WinScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/screen/WinScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/screen/combat/CombatScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/rear_admirals/york_pirates/screen/combat/CombatScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MinigameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MinigameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/build/libs/desktop-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/libs/desktop-1.0.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -148,8 +126,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="444">
-                  <caret line="263" column="52" lean-forward="true" selection-start-line="263" selection-start-column="52" selection-end-line="263" selection-end-column="52" />
+                <state relative-caret-position="240">
+                  <caret line="251" column="17" lean-forward="true" selection-start-line="251" selection-start-column="17" selection-end-line="251" selection-end-column="17" />
                   <folding>
                     <element signature="method#buttonListener#0;class#CombatScreen#0" />
                     <element signature="method#buttonListener#1;class#CombatScreen#0" />
@@ -165,11 +143,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="297">
-                  <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
+                <state relative-caret-position="125">
+                  <caret line="37" column="31" lean-forward="true" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
                 </state>
               </provider>
             </entry>
@@ -183,11 +161,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MinigameScreen.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1870">
-                  <caret line="110" column="17" lean-forward="true" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
+                <state relative-caret-position="323">
+                  <caret line="143" column="5" lean-forward="true" selection-start-line="143" selection-start-column="5" selection-end-line="143" selection-end-column="5" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#1477#3099#0" expanded="true" />
@@ -269,8 +247,8 @@
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/SailingScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MainMenu.java" />
-        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MinigameScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java" />
+        <option value="$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MinigameScreen.java" />
       </list>
     </option>
   </component>
@@ -556,16 +534,16 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32923076" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4966443" visible="true" weight="0.08498584" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49597314" visible="true" weight="0.27478755" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.2830769" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932885" weight="0.3286119" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5033557" side_tool="true" visible="true" weight="0.08498584" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50402683" side_tool="true" visible="true" weight="0.27478755" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.32923076" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4977307" weight="0.21076924" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49731544" weight="0.20963173" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -846,22 +824,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MinigameScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1870">
-          <caret line="110" column="17" lean-forward="true" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1477#3099#0" expanded="true" />
-            <element signature="e#3098#3099#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/combat/CombatScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="263" column="52" lean-forward="true" selection-start-line="263" selection-start-column="52" selection-end-line="263" selection-end-column="52" />
+        <state relative-caret-position="240">
+          <caret line="251" column="17" lean-forward="true" selection-start-line="251" selection-start-column="17" selection-end-line="251" selection-end-column="17" />
           <folding>
             <element signature="method#buttonListener#0;class#CombatScreen#0" />
             <element signature="method#buttonListener#1;class#CombatScreen#0" />
@@ -874,8 +840,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/WinScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
+        <state relative-caret-position="125">
+          <caret line="37" column="31" lean-forward="true" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/rear_admirals/york_pirates/screen/MinigameScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="143" column="5" lean-forward="true" selection-start-line="143" selection-start-column="5" selection-end-line="143" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1477#3099#0" expanded="true" />
+            <element signature="e#3098#3099#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
