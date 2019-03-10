@@ -1,3 +1,5 @@
+//add ability to see health in screen
+
 package com.rear_admirals.york_pirates.screen;
 
 import com.badlogic.gdx.Gdx;
@@ -19,7 +21,7 @@ public class CollegeScreen extends BaseScreen {
     private Label goldLabel;
     private int toHeal;
 
-    public CollegeScreen(PirateGame main, College college){
+    public CollegeScreen(PirateGame main, final College college){
         super(main);
         this.player = main.getPlayer();
 
@@ -48,8 +50,8 @@ public class CollegeScreen extends BaseScreen {
         optionsTable.setFillParent(true);
         Label title = new Label("Welcome to " + college.getName(), main.getSkin(), "title");
         final Label message = new Label("", main.getSkin());
+        final Label blegh = new Label("", main.getSkin());
         optionsTable.add(title);
-        optionsTable.row();
 
 
         toHeal = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHealth();
@@ -74,7 +76,10 @@ public class CollegeScreen extends BaseScreen {
                 }
             }
         });
+        optionsTable.row();
         optionsTable.add(heal);
+        optionsTable.row();
+        optionsTable.add(message);
 
         TextButton minigame_mode = new TextButton("Go to minigame", pirateGame.getSkin()); //added
         minigame_mode.addListener(new ClickListener(){
@@ -84,11 +89,22 @@ public class CollegeScreen extends BaseScreen {
                 dispose();
             }
         });
-
-        optionsTable.row();
-        optionsTable.add(message);
         optionsTable.row();
         optionsTable.add(minigame_mode);    //Added
+
+        final TextButton crew_members_screen = new TextButton ("CrewMembers", pirateGame.getSkin());
+        crew_members_screen.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pirateGame.setScreen(new CrewMembersScreen(pirateGame, college.getCrewMember(), new CollegeScreen(pirateGame, college), college));
+                dispose();
+            }
+        });
+        optionsTable.row();
+        optionsTable.add(blegh);
+        optionsTable.row();
+        optionsTable.add(crew_members_screen);
+
 
         mainStage.addActor(optionsTable);
         Gdx.input.setInputProcessor(mainStage);
@@ -96,10 +112,9 @@ public class CollegeScreen extends BaseScreen {
 
     @Override
     public void update(float delta){
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             System.out.println("ESCAPE");
             pirateGame.setScreen(pirateGame.getSailingScene());
-            dispose();
         }
 
         toHeal = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHealth();

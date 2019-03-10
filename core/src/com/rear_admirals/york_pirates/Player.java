@@ -21,6 +21,9 @@ public class Player {
         this.gold = gold;
         this.points = 0;
         this.crewMembers = new CrewMember[6];
+        for (int i=0;i<6;i++){
+            crewMembers[i] = new CrewMember();
+        }
 
         attacks.add(Ram.attackRam);
         attacks.add(GrapeShot.attackSwivel);
@@ -34,7 +37,8 @@ public class Player {
      */
     public boolean addCrewMember(CrewMember crewMember){
         for (int i=0; i<6; i++){
-            if (crewMembers[i] == null){
+            if (crewMembers[i].equals(new CrewMember())){
+                System.out.println("********* "+crewMembers[i]);
                 crewMembers[i] = crewMember;
                 return true;
             }
@@ -50,7 +54,7 @@ public class Player {
     public boolean removeCrewMember(CrewMember crewMember) {
         for (int i=0;i<6;i++){
             if (crewMembers[i].equals(crewMember)){
-                crewMembers[i] = null;
+                crewMembers[i] = new CrewMember();
                 return true;
             }
         }
@@ -67,6 +71,15 @@ public class Player {
         attacks.add(Attack.attackSwivel);
         attacks.add(Attack.attackBoard);
     }
+
+    public boolean hasSpace(){
+        for (int i=0;i<6;i++){
+            if (crewMembers[i].equals(new CrewMember())){   return true;    }
+        }
+        return false;
+    }
+
+    public CrewMember[] getCrewMembers(){   return this.crewMembers;    }
 
     public Ship getPlayerShip() { return this.playerShip; }
 
