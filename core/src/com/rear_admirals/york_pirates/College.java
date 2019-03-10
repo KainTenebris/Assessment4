@@ -2,9 +2,6 @@ package com.rear_admirals.york_pirates;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
-import static javax.swing.UIManager.put;
 
 public class College {
 
@@ -40,10 +37,7 @@ public class College {
         if (!this.bought){
             if (player.getGold() >= CrewCost) {
                 if (player.addCrewMember(this.crewMember)) {
-                    System.out.println("CREWMEMBER ADDED");
-                    for (int i=0;i<6;i++){
-                        System.out.println(player.getCrewMembers()[i].toString());
-                    }
+                    this.bought = true;
                     player.setGold(player.getGold() - CrewCost);
                 }
             }
@@ -74,12 +68,10 @@ public class College {
         this.bossDead = bossDead;
     }
 
-    public static HashMap<String, Integer> crew1 = new HashMap() {{put("Attack", 20); put("Defence", 30);}};
-
-	public static College Derwent = new College("Derwent", new CrewMember(crew1, "Derwent"));
-    public static College Vanbrugh = new College("Vanbrugh", new CrewMember(crew1, "Vanbrugh"));
-    public static College James = new College("James", new CrewMember(crew1, "James"));
-    public static College Halifax = new College("Halifax", new CrewMember(crew1, "Halifax")); //added to meet requirements
-    public static College Alcuin = new College("Alcuin", new CrewMember(crew1, "Alcuin")); //added to meet requirements
+	public static College Derwent = new College("Derwent", CrewMember.Derwent);
+    public static College Vanbrugh = new College("Vanbrugh", CrewMember.Vanbrugh);
+    public static College James = new College("James", CrewMember.James);
+    public static College Halifax = new College("Halifax", CrewMember.Halifax); //added to meet requirements
+    public static College Alcuin = new College("Alcuin", CrewMember.Alcuin); //added to meet requirements
     public static College Storm = new College("Storm"); //*Storm is labelled as a college as colleges have the functionality we need.
 }

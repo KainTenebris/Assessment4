@@ -113,7 +113,6 @@ public class CollegeScreen extends BaseScreen {
     @Override
     public void update(float delta){
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            System.out.println("ESCAPE");
             pirateGame.setScreen(pirateGame.getSailingScene());
         }
 

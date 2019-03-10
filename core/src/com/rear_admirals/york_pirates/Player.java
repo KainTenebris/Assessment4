@@ -4,7 +4,9 @@ import com.rear_admirals.york_pirates.screen.combat.attacks.*;
 import com.rear_admirals.york_pirates.screen.combat.attacks.GrapeShot;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static com.rear_admirals.york_pirates.College.*;
 import static com.rear_admirals.york_pirates.ShipType.*;
@@ -38,7 +40,17 @@ public class Player {
     public boolean addCrewMember(CrewMember crewMember){
         for (int i=0; i<6; i++){
             if (crewMembers[i].equals(new CrewMember())){
-                System.out.println("********* "+crewMembers[i]);
+                System.out.println("give me this?");
+                Iterator it = crewMember.getStatsToAmounts().entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+                    System.out.println(pair.getKey());
+                    System.out.println("pls");
+                    if (pair.getKey()=="Attack"){   this.playerShip.setAttack(this.playerShip.getAttack()+(Integer)pair.getValue());    }
+                    else if (pair.getKey()=="Defence"){ this.playerShip.setDefence(this.playerShip.getDefence()+(Integer)pair.getValue()); }
+                    else if (pair.getKey()=="Accuracy"){ this.playerShip.setAccuracy(this.playerShip.getAccuracy()+(Integer)pair.getValue()); }
+                    it.remove();
+                }
                 crewMembers[i] = crewMember;
                 return true;
             }

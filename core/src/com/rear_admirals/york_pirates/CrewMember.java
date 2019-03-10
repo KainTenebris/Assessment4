@@ -58,24 +58,38 @@ public class CrewMember {
     public String getCollege() {    return this.college;    }
 
     public HashMap getStatsToAmounts(){ return this.statsToAmounts; }
-    
-    // just returns true no matter what AAAAAAAAAAA
+
     public boolean equals(Object o){
         if (o instanceof CrewMember){
             CrewMember obj = (CrewMember) o;
-            Iterator it1 = this.statsToAmounts.entrySet().iterator();
-            Iterator it2 = obj.statsToAmounts.entrySet().iterator();
-            while (it1.hasNext()) {
-                Map.Entry pair1 = (Map.Entry)it1.next();
-                System.out.println(pair1);
-                Map.Entry pair2 = (Map.Entry)it2.next();
-                if (pair1.getKey()!=pair2.getKey() || pair1.getValue()!=pair2.getValue()){
-                    return false;
+            if (this.statsToAmounts.size()==obj.statsToAmounts.size()) {
+                if (this.college == obj.college) {
+                    Iterator it1 = this.statsToAmounts.entrySet().iterator();
+                    Iterator it2 = obj.statsToAmounts.entrySet().iterator();
+                    while (it1.hasNext()) {
+                        Map.Entry pair1 = (Map.Entry) it1.next();
+                        Map.Entry pair2 = (Map.Entry) it2.next();
+                        if (pair1.getKey() != pair2.getKey() || pair1.getValue() != pair2.getValue()) {
+                            return false;
+                        }
+                        it1.remove();
+                    }
+                    return true;
                 }
-                it1.remove(); // avoids a ConcurrentModificationException
             }
-            return true;
         }
         return false;
     }
+
+    private static HashMap<String, Integer> crew1 = new HashMap() {{put("Attack", 20); put("Defence", 30);}};
+    private static HashMap<String, Integer> crew2 = new HashMap() {{put("Accuracy", 20); put("Defence", 30);}};
+    private static HashMap<String, Integer> crew3 = new HashMap() {{put("Attack", 20); put("Accuracy", 30);}};
+    private static HashMap<String, Integer> crew4 = new HashMap() {{put("Attack", 50); put("Defence", 30);}};
+    private static HashMap<String, Integer> crew5 = new HashMap() {{put("Attack", 20); put("Defence", 300);}};
+
+    static CrewMember Derwent = new CrewMember(crew1, "Derwent");
+    static CrewMember Vanbrugh = new CrewMember(crew2,"Vanbrugh");
+    static CrewMember James = new CrewMember(crew3, "James");
+    static CrewMember Halifax = new CrewMember(crew4, "Halifax");
+    static CrewMember Alcuin = new CrewMember(crew5, "Alcuin");
 }

@@ -21,6 +21,7 @@ public class CrewMembersScreen extends BaseScreen {
     private Screen previous;
     private College college;
 
+    private TextButton buy_CrewMember;
     private TextButton sell_CrewMember0;
     private TextButton sell_CrewMember1;
     private TextButton sell_CrewMember2;
@@ -67,7 +68,7 @@ public class CrewMembersScreen extends BaseScreen {
         optionsTable.row().pad(50);
         optionsTable.add(buy_label);
 
-        TextButton buy_CrewMember = new TextButton(crewMember.getCollege()+" CrewMember "+crewMember.getInfo(), main.getSkin());
+        buy_CrewMember = new TextButton(crewMember.getCollege()+" CrewMember "+crewMember.getInfo(), main.getSkin());
         buyListener(buy_CrewMember);
         buy_CrewMember.align(Align.right);
         optionsTable.add(buy_CrewMember);
@@ -90,17 +91,17 @@ public class CrewMembersScreen extends BaseScreen {
         sellListener(sell_CrewMember3,main.getPlayer().getCrewMembers()[3]);
         sellListener(sell_CrewMember4,main.getPlayer().getCrewMembers()[4]);
         sellListener(sell_CrewMember5,main.getPlayer().getCrewMembers()[5]);
-        crew_table.add(sell_CrewMember0).fill();
+        crew_table.add(sell_CrewMember0);
         crew_table.row();
-        crew_table.add(sell_CrewMember1).fill();
+        crew_table.add(sell_CrewMember1);
         crew_table.row();
-        crew_table.add(sell_CrewMember2).fill();
+        crew_table.add(sell_CrewMember2);
         crew_table.row();
-        crew_table.add(sell_CrewMember3).fill();
+        crew_table.add(sell_CrewMember3);
         crew_table.row();
-        crew_table.add(sell_CrewMember4).fill();
+        crew_table.add(sell_CrewMember4);
         crew_table.row();
-        crew_table.add(sell_CrewMember5).fill();
+        crew_table.add(sell_CrewMember5);
 
         optionsTable.add(crew_table);
 
@@ -112,24 +113,28 @@ public class CrewMembersScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-
-            System.out.println("ESCAPE CREWMEMBERS");
             pirateGame.setScreen(this.previous);
             dispose();
+        }
+
+        if (college.bought()){
+            buy_CrewMember.setText("This CrewMember is already on board");
+        } else {
+            buy_CrewMember.setText(crewMember.getCollege()+" CrewMember "+crewMember.getInfo());
         }
 
         goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
 
-        sell_CrewMember0.setText(pirateGame.getPlayer().getCrewMembers()[5].toString());
-        sell_CrewMember1.setText(pirateGame.getPlayer().getCrewMembers()[5].toString());
-        sell_CrewMember2.setText(pirateGame.getPlayer().getCrewMembers()[5].toString());
-        sell_CrewMember3.setText(pirateGame.getPlayer().getCrewMembers()[5].toString());
-        sell_CrewMember4.setText(pirateGame.getPlayer().getCrewMembers()[5].toString());
+        sell_CrewMember0.setText(pirateGame.getPlayer().getCrewMembers()[0].toString());
+        sell_CrewMember1.setText(pirateGame.getPlayer().getCrewMembers()[1].toString());
+        sell_CrewMember2.setText(pirateGame.getPlayer().getCrewMembers()[2].toString());
+        sell_CrewMember3.setText(pirateGame.getPlayer().getCrewMembers()[3].toString());
+        sell_CrewMember4.setText(pirateGame.getPlayer().getCrewMembers()[4].toString());
         sell_CrewMember5.setText(pirateGame.getPlayer().getCrewMembers()[5].toString());
     }
 
-    private void buyListener(TextButton button){
+    private void buyListener(final TextButton button){
         button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
