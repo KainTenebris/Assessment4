@@ -3,6 +3,7 @@ package com.rear_admirals.york_pirates;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class CrewMember {
     private HashMap statsToAmounts;
@@ -23,7 +24,6 @@ public class CrewMember {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             info += " +"+pair.getValue().toString()+" "+pair.getKey()+",";
-            it.remove(); // avoids a ConcurrentModificationException
         }
         info += " )";
     }
