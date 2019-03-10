@@ -162,6 +162,7 @@ public class Ship extends PhysicsActor {
     public void setDefence(int defence) {
         this.defence = defence;
         this.healthMax = defence * 20;
+        this.health = defence * 20;
     }
 
     public void setAccuracy(int accuracy) {

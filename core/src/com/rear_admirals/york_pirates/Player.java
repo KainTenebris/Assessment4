@@ -59,6 +59,13 @@ public class Player {
     public boolean removeCrewMember(CrewMember crewMember) {
         for (int i=0;i<6;i++){
             if (crewMembers[i].equals(crewMember)){
+                Iterator it = crewMember.getStatsToAmounts().entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+                    if (pair.getKey()=="Attack"){   this.playerShip.setAttack(this.playerShip.getAttack()-(Integer)pair.getValue());    }
+                    else if (pair.getKey()=="Defence"){ this.playerShip.setDefence(this.playerShip.getDefence()-(Integer)pair.getValue()); }
+                    else if (pair.getKey()=="Accuracy"){ this.playerShip.setAccuracy(this.playerShip.getAccuracy()-(Integer)pair.getValue()); }
+                }
                 crewMembers[i] = new CrewMember();
                 return true;
             }

@@ -62,22 +62,10 @@ public class CrewMember {
     public boolean equals(Object o){
         if (o instanceof CrewMember){
             CrewMember obj = (CrewMember) o;
-            if (this.statsToAmounts.size()==obj.statsToAmounts.size()) {
                 if (this.college == obj.college) {
-                    Iterator it1 = this.statsToAmounts.entrySet().iterator();
-                    Iterator it2 = obj.statsToAmounts.entrySet().iterator();
-                    while (it1.hasNext()) {
-                        Map.Entry pair1 = (Map.Entry) it1.next();
-                        Map.Entry pair2 = (Map.Entry) it2.next();
-                        if (pair1.getKey() != pair2.getKey() || pair1.getValue() != pair2.getValue()) {
-                            return false;
-                        }
-                        it1.remove();
-                    }
-                    return true;
+                    return (this.getStatsToAmounts().equals(obj.getStatsToAmounts()));
                 }
             }
-        }
         return false;
     }
 

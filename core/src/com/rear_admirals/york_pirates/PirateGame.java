@@ -25,7 +25,7 @@ public class PirateGame extends Game {
 		batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
         font = new BitmapFont();
-        player = new Player(50);
+        player = new Player(5000);
 		Chemistry = new Department("Chemistry", "Attack", this);
 		Physics = new Department("Physics", "Defence", this);
 		Philosophy = new Department("Philosophy", "Accuracy", this);
