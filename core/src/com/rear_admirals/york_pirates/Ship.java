@@ -29,7 +29,7 @@ public class Ship extends PhysicsActor {
         this.name = "DEBUG SHIP";
         this.attack = 5;
         this.defence = 5;
-        this.accuracy = 5;
+        this.accuracy = 10;
         this.healthMax = defence*20;
         this.health = healthMax;
         this.college = Derwent;

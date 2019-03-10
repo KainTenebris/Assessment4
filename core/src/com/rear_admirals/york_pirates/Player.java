@@ -14,16 +14,49 @@ public class Player {
     private int gold;
     private int points;
     public static List<Attack> attacks = new ArrayList<Attack>();
+    private CrewMember[] crewMembers;
 
-    public Player() {
+    public Player(int gold) {
 	    this.playerShip = new Ship(Brig, "Your Ship", Derwent);
-        this.gold = 0;
+        this.gold = gold;
         this.points = 0;
+        this.crewMembers = new CrewMember[6];
 
         attacks.add(Ram.attackRam);
         attacks.add(GrapeShot.attackSwivel);
         attacks.add(Attack.attackBoard);
     }
+
+    /*
+            iterates through the array of crewMembers
+            if there is an empty spot, sets it to contain the added crew member and returns true
+            else returns false
+     */
+    public boolean addCrewMember(CrewMember crewMember){
+        for (int i=0; i<6; i++){
+            if (crewMembers[i] == null){
+                crewMembers[i] = crewMember;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+            iterates through the array of crewMembers
+            if it finds the specified crewMember, sets it to null and returns true
+            else returns false
+     */
+    public boolean removeCrewMember(CrewMember crewMember) {
+        for (int i=0;i<6;i++){
+            if (crewMembers[i].equals(crewMember)){
+                crewMembers[i] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public Player(Ship ship) {
         this.playerShip = ship;

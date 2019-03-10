@@ -26,9 +26,11 @@ public class Department {
                 pirateGame.getPlayer().getPlayerShip().setAccuracy(pirateGame.getPlayer().getPlayerShip().getAccuracy() + 2);
                 return true;
             }
-            else {
+            else if (product == "Attack") {
                 pirateGame.getPlayer().getPlayerShip().setAttack(pirateGame.getPlayer().getPlayerShip().getAttack() + 2);
                 return true;
+            } else {
+                throw new IllegalArgumentException();
             }
         } else {
             return false;
