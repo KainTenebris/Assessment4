@@ -25,7 +25,7 @@ public class PirateGame extends Game {
 		batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
         font = new BitmapFont();
-        player = new Player(5000);
+        player = new Player(50);
 		Chemistry = new Department("Chemistry", "Attack", this);
 		Physics = new Department("Physics", "Defence", this);
 		Philosophy = new Department("Philosophy", "Accuracy", this);
@@ -38,7 +38,6 @@ public class PirateGame extends Game {
 		batch.dispose();
 		font.dispose();
 	}
-
 	@Override
 	public void render() {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -47,25 +46,19 @@ public class PirateGame extends Game {
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		super.resize(width, height);
-	}
-
+	public void resize(int width, int height)	{ super.resize(width, height); 	}
 	@Override
-	public void pause() {
-		super.pause();
-	}
-
+	public void pause()     					{ super.pause(); 				}
 	@Override
-	public void resume() {
-		super.resume();
-	}
+	public void resume() 						{ super.resume(); 				}
 
-	public Skin getSkin() { return this.skin; }
+	public Skin getSkin() 						{ return this.skin; 			}
+	public Player getPlayer() 					{ return this.player; 			}
+	public SailingScreen getSailingScene() 		{ return this.sailingScene; 	}
 
-	public void setSkin(Skin skin) { this.skin = skin; }
+	public void setSkin(Skin skin) 				{ this.skin = skin; 			}
 
-	public Player getPlayer() { return this.player; }
 
-	public SailingScreen getSailingScene() { return this.sailingScene; }
+
+
 }

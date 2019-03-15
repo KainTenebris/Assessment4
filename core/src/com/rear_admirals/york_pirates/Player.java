@@ -30,11 +30,23 @@ public class Player {
     }
 
     /*
+    public Player(Ship ship) {
+        this.playerShip = ship;
+        this.gold = 0;
+        this.points = 0;
+
+        attacks.add(Ram.attackRam);
+        attacks.add(Attack.attackSwivel);
+        attacks.add(Attack.attackBoard);
+    }
+    */
+
+    public boolean addCrewMember(CrewMember crewMember){
+        /*
             iterates through the array of crewMembers
             if there is an empty spot, sets it to contain the added crew member and returns true
             else returns false
-     */
-    public boolean addCrewMember(CrewMember crewMember){
+        */
         for (int i=0; i<6; i++){
             if (crewMembers[i].equals(new CrewMember())){
                 crewMembers[i] = crewMember;
@@ -50,13 +62,12 @@ public class Player {
         }
         return false;
     }
-
-    /*
+    public boolean removeCrewMember(CrewMember crewMember) {
+        /*
             iterates through the array of crewMembers
             if it finds the specified crewMember, sets it to null and returns true
             else returns false
-     */
-    public boolean removeCrewMember(CrewMember crewMember) {
+        */
         for (int i=0;i<6;i++){
             if (crewMembers[i].equals(crewMember)){
                 Iterator it = crewMember.getStatsToAmounts().entrySet().iterator();
@@ -72,38 +83,20 @@ public class Player {
         }
         return false;
     }
-
-
-    public Player(Ship ship) {
-        this.playerShip = ship;
-        this.gold = 0;
-        this.points = 0;
-
-        attacks.add(Ram.attackRam);
-        attacks.add(Attack.attackSwivel);
-        attacks.add(Attack.attackBoard);
-    }
-
     public boolean hasSpace(){
         for (int i=0;i<6;i++){
             if (crewMembers[i].equals(new CrewMember())){   return true;    }
         }
         return false;
     }
+    public CrewMember[] getCrewMembers(){ return this.crewMembers;  }
 
-    public CrewMember[] getCrewMembers(){   return this.crewMembers;    }
+    public Ship getPlayerShip()         { return this.playerShip;   }
+    public int getPoints()              { return points;            }
+	public int getGold()                { return gold;              }
 
-    public Ship getPlayerShip() { return this.playerShip; }
-
-    public int getPoints() { return points; }
-
-	public int getGold() { return gold; }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public void setGold(int gold) { this.gold = gold; }
+    public void addPoints(int amount)   { this.points += amount;    }
+    public void addGold(int amount)     { this.gold += amount;      }
 
 	public boolean payGold(int amount){
         if (amount > gold){
@@ -114,8 +107,4 @@ public class Player {
             return true;
         }
     }
-
-    public void addPoints(int amount) { points += amount; }
-
-    public void addGold(int amount) { gold = gold + amount; }
 }

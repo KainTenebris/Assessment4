@@ -20,13 +20,15 @@ import static com.rear_admirals.york_pirates.College.*;
 public class MainMenu extends BaseScreen {
     private Stage stage;
 
-    private float screen_width;
-    private float screen_height;
-
     public MainMenu(final PirateGame pirateGame){
         super(pirateGame);
 
+        stage = new Stage(new FitViewport(1920,1080));
+
         Gdx.graphics.setTitle("York Pirates!");
+
+        float screen_width = stage.getWidth();
+        float screen_height = stage.getHeight();
 
         // Layout Properties
         Container<Table> tableContainer = new Container<Table>();
@@ -34,10 +36,6 @@ public class MainMenu extends BaseScreen {
         tableContainer.setPosition(0,0);
         tableContainer.align(Align.center);
         Table table = new Table();
-        stage = new Stage(new FitViewport(1920,1080));
-
-        screen_width = stage.getWidth();
-        screen_height = stage.getHeight();
 
         // Debugging
         System.out.println(screen_width + ", " + screen_height);
@@ -116,9 +114,6 @@ public class MainMenu extends BaseScreen {
         System.out.println("IP: stage");
     }
 
-    @Override
-    public void update(float delta) { }
-
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -126,31 +121,21 @@ public class MainMenu extends BaseScreen {
         stage.act();
 
     }
+    @Override
+    public void resize(int width, int height)   { stage.getViewport().update(width,height);     }
 
     @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width,height);
-    }
-
+    public void update(float delta)             {                                               }
     @Override
-    public void show() {
-    }
-
+    public void show()                          {                                               }
     @Override
-    public void hide() {
-    }
-
+    public void hide()                          {                                               }
     @Override
-    public void pause() {
-    }
-
+    public void pause()                         {                                               }
     @Override
-    public void resume() {
-    }
-
+    public void resume()                        {                                               }
     @Override
-    public void dispose() {
-    }
+    public void dispose()                       {                                               }
 }
 
 

@@ -3,20 +3,13 @@ package com.rear_admirals.york_pirates;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public class CrewMember {
     private HashMap statsToAmounts;
     private String college;
     private String info;
 
-    public CrewMember(){
-        this.college = "";
-        this.statsToAmounts = new HashMap();
-        this.info = "Empty Slot";
-    }
-
-    public CrewMember(HashMap<String, Integer> stats, String college){
+    private CrewMember(HashMap<String, Integer> stats, String college){
         this.college = college;
         this.statsToAmounts = stats;
         this.info = "(";
@@ -27,6 +20,23 @@ public class CrewMember {
         }
         info += " )";
     }
+    public CrewMember(){
+        this.college = "";
+        this.statsToAmounts = new HashMap();
+        this.info = "Empty Slot";
+    }
+
+    public HashMap getStatsToAmounts()              { return this.statsToAmounts;           }
+    public String getInfo()                         {   return this.info;                   }
+    public String getCollege()                      {    return this.college;               }
+    public College getRealCollege() {
+        if (this.college.equals("Derwent"))         {   return College.Derwent;             }
+        else if (this.college.equals("Alcuin"))     {   return College.Alcuin;              }
+        else if (this.college.equals("James"))      {   return College.James;               }
+        else if (this.college.equals("Vanbrugh"))   {   return College.Vanbrugh;            }
+        else if (this.college.equals("Halifax"))    {   return College.Halifax;             }
+        else                                        {   throw new IllegalStateException();  }
+    }
 
     public String toString(){
         String out = "";
@@ -36,33 +46,10 @@ public class CrewMember {
         out += info;
         return out;
     }
-
-    public String getInfo() {   return this.info;   }
-
-    public College getRealCollege() {
-        if (this.college == "Derwent"){
-            return College.Derwent;
-        } else if (this.college == "Alcuin"){
-            return College.Alcuin;
-        } else if (this.college == "Halifax"){
-            return College.Halifax;
-        } else if (this.college == "Vanbrugh"){
-            return College.Vanbrugh;
-        }   else if (this.college == "James"){
-            return College.James;
-        }   else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public String getCollege() {    return this.college;    }
-
-    public HashMap getStatsToAmounts(){ return this.statsToAmounts; }
-
     public boolean equals(Object o){
         if (o instanceof CrewMember){
             CrewMember obj = (CrewMember) o;
-                if (this.college == obj.college) {
+                if (this.college.equals(obj.college)) {
                     return (this.getStatsToAmounts().equals(obj.getStatsToAmounts()));
                 }
             }

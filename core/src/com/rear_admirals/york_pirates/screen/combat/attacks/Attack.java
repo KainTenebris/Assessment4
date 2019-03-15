@@ -2,7 +2,7 @@ package com.rear_admirals.york_pirates.screen.combat.attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class Attack {
 	protected String name;
@@ -48,7 +48,8 @@ public class Attack {
 
 	// New function used to check if an attack hits the enemy.
 	protected boolean doesHit( int shipAcc, int accPercent) {
-		int random = ThreadLocalRandom.current().nextInt(0, 101);
+		Random randint = new Random();
+		int random = randint.nextInt(101);
 		if (accPercent * (1+(shipAcc-3)*0.02) > random){
 			return true;
 		} else{
@@ -60,7 +61,7 @@ public class Attack {
 	public int doAttack(Ship attacker, Ship defender) {
 		if ( doesHit(attacker.getAccuracy(), this.accPercent) ) {
 			this.damage = attacker.getAttack() * this.dmgMultiplier;
-			defender.damage(this.damage);
+			defender.addHealth(-this.damage);
 			return this.damage;
 		}
 		return 0;

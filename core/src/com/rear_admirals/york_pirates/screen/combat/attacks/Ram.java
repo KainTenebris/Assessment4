@@ -13,8 +13,8 @@ public class Ram extends Attack {
 	public int doAttack(Ship attacker, Ship defender) {
 		if ( doesHit(attacker.getAccuracy(), this.accPercent) ) {
 			this.damage = attacker.getAttack()*this.dmgMultiplier;
-			defender.damage(this.damage);
-			attacker.damage(this.damage/2);
+			defender.addHealth(-this.damage);
+			attacker.addHealth(-this.damage/2);
 			return this.damage;
 		}
 		return 0;

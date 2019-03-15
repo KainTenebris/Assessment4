@@ -80,7 +80,30 @@ public class Ship extends PhysicsActor {
         setupShip();
     }
 
-    public void setupShip(){
+    // Getters and Setters
+    public College getCollege()             { return college;               }
+    public int getHealthMax()               { return healthMax;             }
+    public String getName()                 { return name;                  }
+    public int getAttack()                  { return attack;                }
+    public int getDefence()                 { return defence;               }
+    public int getAccuracy()                { return accuracy;              }
+    public int getHealth()                  { return health;                }
+    public String getType()                 { return type.getName();        }
+    public Texture getSailingTexture()      { return this.sailingTexture;   }
+    public boolean getIsBoss()              { return this.isBoss;           }
+
+    public void setAttack(int attack)       { this.attack = attack;         }
+    public void setCollege(College college) { this.college = college;       }
+    public void setAccuracy(int accuracy)   { this.accuracy = accuracy;     }
+    public void setHealth(int health)       { this.health = health;         }
+    public void addHealth(int health)       { this.health += health;        }
+    public void setDefence(int defence) {
+        this.defence = defence;
+        this.healthMax = defence * 20;
+        this.health = defence * 20;
+    }
+
+    private void setupShip(){
         this.setWidth(this.sailingTexture.getWidth());
         this.setHeight(this.sailingTexture.getHeight());
         this.setOriginCentre();
@@ -105,74 +128,9 @@ public class Ship extends PhysicsActor {
         }
     }
 
-    public void damage(int amt){
-    	health = health - amt;
-    }
-
     @Override
     public void draw(Batch batch, float alpha){
         batch.setColor(1,1,1,alpha);
         batch.draw(new TextureRegion(sailingTexture),getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),1,1,getRotation());
     }
-
-    // Getters and Setters
-    public College getCollege() {
-        return college;
-    }
-
-    public void setCollege(College college) {
-        this.college = college;
-    }
-
-    public int getHealthMax() {
-        return healthMax;
-    }
-
-
-    public String getName() { return name; }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public int getDefence() {
-        return defence;
-    }
-
-    public int getAccuracy() { return accuracy; }
-
-    public int getHealth() {
-        return health;
-    }
-
-	public String getType() {
-		return type.getName();
-	}
-
-	public Texture getSailingTexture() { return this.sailingTexture; }
-
-    public boolean getIsBoss() { return this.isBoss; }
-
-	public void setName(String name) { this.name = name; }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setDefence(int defence) {
-        this.defence = defence;
-        this.healthMax = defence * 20;
-        this.health = defence * 20;
-    }
-
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public void setType(ShipType type) { this.type = type; }
-
 }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.screen.ObjectiveScreen;
 import com.rear_admirals.york_pirates.screen.WinScreen;
 import com.rear_admirals.york_pirates.screen.combat.attacks.*;
 import com.rear_admirals.york_pirates.PirateGame;
@@ -19,10 +18,9 @@ import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
-import java.util.concurrent.ThreadLocalRandom;
 
-import static com.rear_admirals.york_pirates.College.Halifax;
 import static com.rear_admirals.york_pirates.College.Storm;
 
 public class CombatScreen extends BaseScreen {
@@ -195,9 +193,10 @@ public class CombatScreen extends BaseScreen {
                 }
                 break;
             case ENEMY_MOVE:
+                Random randint = new Random();
                 System.out.println("Running enemy move");
                 textBox.setStyle(pirateGame.getSkin().get("red", TextButton.TextButtonStyle.class));
-                Attack enemyAttack = enemyAttacks.get(ThreadLocalRandom.current().nextInt(0,3));
+                Attack enemyAttack = enemyAttacks.get(randint.nextInt(3));
                 int damage = enemyAttack.doAttack(enemy, player.getPlayerShip());
                 String message;
                 if (damage == 0){
@@ -226,8 +225,8 @@ public class CombatScreen extends BaseScreen {
             case PLAYER_DIES:
                 textBox.setStyle(pirateGame.getSkin().get("red", TextButton.TextButtonStyle.class));
                 player.addGold(-player.getGold()/3);
-                player.setPoints(0);
-                player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax()/4);
+                player.addPoints(-player.getGold());
+                player.getPlayerShip().addHealth(player.getPlayerShip().getHealthMax()/4);
                 dialog("YOU HAVE DIED", BattleEvent.SCENE_RETURN);
                 break;
             case ENEMY_DIES:
@@ -315,11 +314,11 @@ public class CombatScreen extends BaseScreen {
         playerHP.setAnimateDuration(1);
 
         if (enemy.getHealth() <= 0){
-            enemy.setHealth(0);
+            enemy.addHealth(-enemy.getHealth());
         }
 
         if (player.getPlayerShip().getHealth() <= 0){
-            player.getPlayerShip().setHealth(0);
+            player.getPlayerShip().addHealth(-player.getPlayerShip().getHealth());
         }
 
         enemyHPLabel.setText(enemy.getHealth()+"/"+enemy.getHealthMax());

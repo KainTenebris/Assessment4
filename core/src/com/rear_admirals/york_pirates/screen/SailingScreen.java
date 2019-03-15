@@ -21,7 +21,7 @@ import com.rear_admirals.york_pirates.base.BaseScreen;
 import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import static com.rear_admirals.york_pirates.College.*;
 import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
@@ -63,8 +63,8 @@ public class SailingScreen extends BaseScreen {
     private int goldCounter; //used to add ticking gold for capturing colleges
 	
 	//--------------------------------------------------------------------------------------------------------------------------
-    boolean inStorm = false; //*If the ship is in a storm.
-	int weatherTimer = 0; //Timer to see how long ship was in storm for damage.
+    private boolean inStorm = false; //*If the ship is in a storm.
+	private int weatherTimer = 0; //Timer to see how long ship was in storm for damage.
     //--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -103,7 +103,7 @@ public class SailingScreen extends BaseScreen {
         goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         this.playerShip.playerMove(delta);
 
-        Boolean x = false;
+        boolean x = false;
         for (BaseActor region : regionList) {
             String name = region.getName();
             if (playerShip.overlaps(region, false)) {
@@ -118,7 +118,7 @@ public class SailingScreen extends BaseScreen {
                     inStorm = true; //Used to affect point bonus at the bottom of code.
                     if (weatherTimer >= 30){ //After certain point
                         if(playerShip.getHealth()> (playerShip.getHealthMax()/4)){
-                            playerShip.setHealth(playerShip.getHealth() - 1); //Can't die from bad weather, only get down to 1/4 of max HP
+                            playerShip.addHealth(-1); //Can't die from bad weather, only get down to 1/4 of max HP
                         }
                         weatherTimer = 0;
                     }
@@ -133,8 +133,8 @@ public class SailingScreen extends BaseScreen {
 				//*End weather stuff here------------------------------------------------------------------------------------------
 				
 				
-				
-				int enemyChance = ThreadLocalRandom.current().nextInt(0, 10001);
+				Random randint = new Random();
+				int enemyChance = randint.nextInt(10001);
                 if (enemyChance <= 10) {
                     System.out.println("Enemy Found in " + name);
                     College college = region.getCollege();
@@ -156,7 +156,7 @@ public class SailingScreen extends BaseScreen {
         }
 
 
-        Boolean y = false;
+        boolean y = false;
         for (BaseActor obstacle : obstacleList) {
             String name = obstacle.getName();
             if (playerShip.overlaps(obstacle, true)) {
@@ -174,7 +174,7 @@ public class SailingScreen extends BaseScreen {
                     College college = obstacle.getCollege();
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
                         System.out.println("A college");
-                        if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
+                        if (!playerShip.getCollege().getAlly().contains(college) && !obstacle.getCollege().isBossDead()) {
                             //*-----------------------------------------------------------------------------------------------------------------------------------
                             //*Make final boss more difficult than the regular college bosses.
 							if(college.getName().equals("Halifax")){ //Final boss name
@@ -190,8 +190,6 @@ public class SailingScreen extends BaseScreen {
                             pirateGame.setScreen(new CollegeScreen(pirateGame, college));
                         }
                     }
-                } else {
-//                    System.out.println("Pure obstacle");
                 }
             }
         }
@@ -244,7 +242,7 @@ public class SailingScreen extends BaseScreen {
                 if (goldCounter == 6 - pirateGame.getPlayer().getPlayerShip().getCollege().getAlly().size()) {
                     //gold is added and counter is reset when counter reaches some number dependent on size of ally
                     goldCounter = 0;
-                    pirateGame.getPlayer().setGold(pirateGame.getPlayer().getGold() + 1);
+                    pirateGame.getPlayer().addGold(1);
                 }
             }
 
@@ -408,8 +406,7 @@ public class SailingScreen extends BaseScreen {
                 else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
                 else if (objectName.equals("physics")) solid.setDepartment(Physics);
                 else if (objectName.equals("philosophy")) solid.setDepartment(Philosophy); //added for req
-                else if (objectName.equals("rocks")) ;//ignores rocks
-                else{
+                else if (!objectName.equals("rocks")) { //ignores rocks
                     System.out.println("Not college/department: " + solid.getName());
                 }
                 obstacleList.add(solid);

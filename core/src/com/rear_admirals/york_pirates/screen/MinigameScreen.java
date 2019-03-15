@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.*;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 
+import static java.lang.StrictMath.max;
 
 
 public class MinigameScreen extends BaseScreen{
@@ -48,36 +49,34 @@ public class MinigameScreen extends BaseScreen{
         rollDice.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                if (main.getPlayer().getGold() >= 10){
-                    rollDice.setText("10 Gold to Roll Dice");
-                    int gold = main.getPlayer().getGold();
-                    String gameState = ceelo.playGame();
-                    int[] playerdice = ceelo.getPlayerdice();
-                    int[] enemydice = ceelo.getEnemydice();
-                    gameStateLabel.setText(gameState);
-                    setDiceImages(playerdice,enemydice);
-                    if (gameState == "Lost"){
-                        player.setGold(gold - 10);
-                    } else if (gameState == "Won"){
-                        player.setGold(gold + 10);
-                    }
-                    currentGoldLabel.setText(Integer.toString(main.getPlayer().getGold()));
-                } else {
 
-                    if (sellSoulStage == 0){
-                        rollDice.setText("You don't have enough money");
-                        sellSoulStage += 1;
-                    } else if (sellSoulStage == 1) {
-                        rollDice.setText("SELL SOUL");
-                        sellSoulStage += 1;
-                    } else if (sellSoulStage == 2){
-//                        while (main.getPlayer().getGold() != 100){
-                        sellSoul(pirateGame, ceelo, rollDice);
-//                        }
-                        rollDice.setText("10 Gold to Roll Dice");
-                        sellSoulStage = 0;
-                    }
-                }
+        if (main.getPlayer().getGold() >= 10){
+            rollDice.setText("10 Gold to Roll Dice");
+            String gameState = ceelo.playGame();
+            int[] playerdice = ceelo.getPlayerdice();
+            int[] enemydice = ceelo.getEnemydice();
+            gameStateLabel.setText(gameState);
+            setDiceImages(playerdice,enemydice);
+            if (gameState == "Lost"){
+                player.addGold(-10);
+            } else if (gameState == "Won"){
+                player.addGold(10);
+            }
+            currentGoldLabel.setText(Integer.toString(main.getPlayer().getGold()));
+        } else {
+
+            if (sellSoulStage == 0){
+                rollDice.setText("You don't have enough money");
+                sellSoulStage += 1;
+            } else if (sellSoulStage == 1) {
+                rollDice.setText("SELL SOUL");
+                sellSoulStage += 1;
+            } else if (sellSoulStage == 2){
+                sellSoul(pirateGame, ceelo, rollDice);
+                rollDice.setText("10 Gold to Roll Dice");
+                sellSoulStage = 0;
+            }
+        }
 
             }
         });
@@ -124,7 +123,7 @@ public class MinigameScreen extends BaseScreen{
 
     }
 
-    public void sellSoul(PirateGame main, Minigame ceelo, TextButton diceButton){
+    private void sellSoul(PirateGame main, Minigame ceelo, TextButton diceButton){
         int gold = main.getPlayer().getGold();
         String gameState = ceelo.playGame();
         int[] playerdice = ceelo.getPlayerdice();
@@ -134,7 +133,7 @@ public class MinigameScreen extends BaseScreen{
         if (gameState == "Lost"){
             pirateGame.setScreen(new WinScreen(pirateGame, false));
         } else if (gameState == "Won"){
-            player.setGold(100);
+            player.addGold(max(0,100-player.getGold()));
         }  else {
             sellSoul(pirateGame, ceelo, diceButton);
         }
@@ -143,7 +142,7 @@ public class MinigameScreen extends BaseScreen{
         return;
     }
 
-    public void setDiceImages(int[] playerdice, int[] enemydice){
+    private void setDiceImages(int[] playerdice, int[] enemydice){
         for (int i = 0; i < 3; i++){
             if (playerdice[i] == 1){
                 playerdiceimages[i].setTexture("playerdice1.png");

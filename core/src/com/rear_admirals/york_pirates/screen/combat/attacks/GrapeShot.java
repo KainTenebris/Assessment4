@@ -20,7 +20,7 @@ public class GrapeShot extends Attack {
                 System.out.println("GRAPE MISSED");
             }
         }
-        defender.damage(this.damage);
+        defender.addHealth(-this.damage);
         return this.damage;
     }
 

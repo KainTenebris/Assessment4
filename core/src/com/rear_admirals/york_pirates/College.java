@@ -1,7 +1,6 @@
 package com.rear_admirals.york_pirates;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class College {
 
@@ -21,7 +20,6 @@ public class College {
         this.crewMember = crewMember;
         this.bought = false;
     }
-
     public College(String name) {
         this.name = name;
         this.ally = new ArrayList<College>();
@@ -31,41 +29,31 @@ public class College {
         this.bought = true;
     }
 
-    public CrewMember getCrewMember(){  return this.crewMember; }
+    public CrewMember getCrewMember()           { return this.crewMember;   }
+    public boolean bought()                     { return this.bought;       }
+    public String getName()                     { return name;              }
+    public ArrayList<College> getAlly()         { return ally;              }
+    public boolean isBossDead()                 { return bossDead;          }
+
+    public void addAlly(College newAlly)        { ally.add(newAlly);        }
+    public void setBossDead(boolean bossDead)   { this.bossDead = bossDead; }
 
     public void addCrewMember(Player player){
         if (!this.bought){
             if (player.getGold() >= CrewCost) {
                 if (player.addCrewMember(this.crewMember)) {
                     this.bought = true;
-                    player.setGold(player.getGold() - CrewCost);
+                    player.addGold(-CrewCost);
                 }
             }
         }
     }
-
     public boolean removeCrewMember(CrewMember crewMember, Player player){
         if (player.removeCrewMember(crewMember)){
             crewMember.getRealCollege().bought = false;
-            player.setGold(player.getGold() + CrewCost/2);
+            player.addGold(CrewCost/2);
         }
         return false;
-    }
-
-    public boolean bought() {   return this.bought;  }
-
-    public String getName() { return name; }
-
-    public ArrayList<College> getAlly() { return ally; }
-    public void addAlly(College newAlly){
-        ally.add(newAlly);
-    }
-
-    public boolean isBossDead() {
-        return bossDead;
-    }
-    public void setBossDead(boolean bossDead) {
-        this.bossDead = bossDead;
     }
 
 	public static College Derwent = new College("Derwent", CrewMember.Derwent);

@@ -17,6 +17,19 @@ public class Department {
         this.pirateGame = pirateGame;
     }
 
+    public int getPrice() {
+        if (product == "Defence") {
+            return (int) (base_price * pow(1.5, max(0, pirateGame.getPlayer().getPlayerShip().getDefence() - 4)));
+        } else if (product == "Attack"){
+            return (int) (base_price * pow(1.5, max(0, pirateGame.getPlayer().getPlayerShip().getAttack() - 4)));
+        } else if (product == "Accuracy"){
+            return (int) (base_price *pow(1.5, max(0, pirateGame.getPlayer().getPlayerShip().getAccuracy() - 4)));
+        }
+        else {return 0;}
+    }
+    public String getName()         { return name;      }
+    public String getProduct()      { return product;   }
+
     public boolean purchase(){
         if ( pirateGame.getPlayer().payGold(getPrice()) ) {
             if (product == "Defence") {
@@ -35,22 +48,5 @@ public class Department {
         } else {
             return false;
         }
-    }
-
-    public int getPrice() {
-        if (product == "Defence") {
-            return (int) (base_price * pow(1.5, max(0, pirateGame.getPlayer().getPlayerShip().getDefence() - 4)));
-        } else if (product == "Attack"){
-            return (int) (base_price * pow(1.5, max(0, pirateGame.getPlayer().getPlayerShip().getAttack() - 4)));
-        } else if (product == "Accuracy"){
-            return (int) (base_price *pow(1.5, max(0, pirateGame.getPlayer().getPlayerShip().getAccuracy() - 4)));
-        }
-        else {return 0;}
-    }
-
-    public String getName() { return name; }
-
-    public String getProduct() {
-        return product;
     }
 }
