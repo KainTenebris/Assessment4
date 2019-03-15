@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/* New class for Assessment 4 */
 public class CrewMember {
     private HashMap statsToAmounts;
     private String college;
@@ -56,11 +57,11 @@ public class CrewMember {
         return false;
     }
 
-    private static HashMap<String, Integer> crew1 = new HashMap() {{put("Attack", 20); put("Defence", 30);}};
-    private static HashMap<String, Integer> crew2 = new HashMap() {{put("Accuracy", 20); put("Defence", 30);}};
-    private static HashMap<String, Integer> crew3 = new HashMap() {{put("Attack", 20); put("Accuracy", 30);}};
-    private static HashMap<String, Integer> crew4 = new HashMap() {{put("Attack", 50); put("Defence", 30);}};
-    private static HashMap<String, Integer> crew5 = new HashMap() {{put("Attack", 20); put("Defence", 300);}};
+    private static HashMap<String, Integer> crew1 = new HashMap<String, Integer>() {{put("Attack", 20); put("Defence", 30);}};
+    private static HashMap<String, Integer> crew2 = new HashMap<String, Integer>() {{put("Accuracy", 20); put("Defence", 30);}};
+    private static HashMap<String, Integer> crew3 = new HashMap<String, Integer>() {{put("Attack", 20); put("Accuracy", 30);}};
+    private static HashMap<String, Integer> crew4 = new HashMap<String, Integer>() {{put("Attack", 50); put("Defence", 30);}};
+    private static HashMap<String, Integer> crew5 = new HashMap<String, Integer>() {{put("Attack", 20); put("Defence", 300);}};
 
     static CrewMember Derwent = new CrewMember(crew1, "Derwent");
     static CrewMember Vanbrugh = new CrewMember(crew2,"Vanbrugh");

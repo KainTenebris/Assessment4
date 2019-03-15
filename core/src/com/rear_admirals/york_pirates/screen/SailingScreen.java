@@ -13,15 +13,15 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.rear_admirals.york_pirates.College;
+import com.rear_admirals.york_pirates.*;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.base.BaseActor;
-import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
-import com.rear_admirals.york_pirates.Ship;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.rear_admirals.york_pirates.College.*;
 import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
@@ -67,6 +67,13 @@ public class SailingScreen extends BaseScreen {
 	private int weatherTimer = 0; //Timer to see how long ship was in storm for damage.
     //--------------------------------------------------------------------------------------------------------------------------
 
+    /* New for Assessment 4 */
+    private Obstacle whirlpool;
+    private Texture whirlpoolTexture;
+    private boolean inWhirlpool = false;
+    private Timer whirlpoolTimer = new Timer();
+    private float whirlpoolDelta;
+
 
     public SailingScreen(final PirateGame main){
         super(main);
@@ -102,6 +109,8 @@ public class SailingScreen extends BaseScreen {
         removeList.clear();
         goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         this.playerShip.playerMove(delta);
+
+        updateObstacle(delta);
 
         boolean x = false;
         for (BaseActor region : regionList) {
@@ -438,6 +447,70 @@ public class SailingScreen extends BaseScreen {
                 regionList.add(region);
             } else {
                 System.err.println("Unknown RegionData object.");
+            }
+        }
+    }
+
+
+    public void spawnObstacle() {
+        System.out.println("Spawning obstacle");
+        this.whirlpoolDelta = 0;
+        this.whirlpoolTexture = new Texture("whirlpool.png");
+        Random ran = new Random();
+        int x = ran.nextInt(this.mapWidth - this.whirlpoolTexture.getWidth());
+        int y = ran.nextInt(this.mapHeight - this.whirlpoolTexture.getHeight());
+        this.whirlpool = new Obstacle(x, y, whirlpoolTexture);
+
+        mainStage.clear();
+        mainStage.addActor(this.whirlpool);
+        mainStage.addActor(this.playerShip);
+
+        //Despawns after 30s
+        whirlpoolTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                despawnObstacle();
+            }
+        }, 30*1000);
+    }
+
+    //New for Assessment 4:
+    private void despawnObstacle() {
+        System.out.println("Despawning obstacle");
+        mainStage.clear();
+        mainStage.addActor(this.playerShip);
+        this.whirlpool = null;
+    }
+
+    //New for Assessment 4:
+    private void updateObstacle(float delta) {
+
+
+        if(this.whirlpool != null) {
+            if(this.whirlpool.overlaps(playerShip, false) != inWhirlpool) {
+                inWhirlpool = !inWhirlpool;
+            }
+            if(inWhirlpool) {
+                this.whirlpoolDelta += delta;
+                playerShip.setMaxSpeed(100);
+                if(this.whirlpoolDelta >= 0.5f) {
+                    playerShip.addHealth(-10);
+                    if(playerShip.getHealth() <= 0) {
+                        playerShip.setHealth((int) (playerShip.getHealthMax() * .25));
+                        Player player = pirateGame.getPlayer();
+                        player.addGold((int)(-0.5 * player.getGold()));
+                    }
+                    this.whirlpoolDelta -= 1;
+                }
+            } else {
+                this.whirlpoolDelta = 0;
+                playerShip.setMaxSpeed(400);
+            }
+        } else {
+            Random rand = new Random();
+            if(rand.nextInt(500) == 0) {
+                spawnObstacle();
+                return;
             }
         }
     }

@@ -14,6 +14,7 @@ import com.rear_admirals.york_pirates.CrewMember;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 
+/* New class for Assessment 4 */
 public class CrewMembersScreen extends BaseScreen {
     private CrewMember crewMember;
     private Label pointsLabel;

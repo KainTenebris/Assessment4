@@ -7,9 +7,10 @@ public class College {
 	private final String name;
 	private ArrayList<College> ally;
     private boolean bossDead;
+
+    //New for Assessment 4:
     private CrewMember crewMember;
     private boolean bought;
-
     private Integer CrewCost = 200;
 
     public College(String name, CrewMember crewMember) {
@@ -29,15 +30,9 @@ public class College {
         this.bought = true;
     }
 
+    //New for Assessment 4:
     public CrewMember getCrewMember()           { return this.crewMember;   }
     public boolean bought()                     { return this.bought;       }
-    public String getName()                     { return name;              }
-    public ArrayList<College> getAlly()         { return ally;              }
-    public boolean isBossDead()                 { return bossDead;          }
-
-    public void addAlly(College newAlly)        { ally.add(newAlly);        }
-    public void setBossDead(boolean bossDead)   { this.bossDead = bossDead; }
-
     public void addCrewMember(Player player){
         if (!this.bought){
             if (player.getGold() >= CrewCost) {
@@ -55,6 +50,14 @@ public class College {
         }
         return false;
     }
+
+    public String getName()                     { return name;              }
+    public ArrayList<College> getAlly()         { return ally;              }
+    public boolean isBossDead()                 { return bossDead;          }
+    public void addAlly(College newAlly)        { ally.add(newAlly);        }
+    public void setBossDead(boolean bossDead)   { this.bossDead = bossDead; }
+
+
 
 	public static College Derwent = new College("Derwent", CrewMember.Derwent);
     public static College Vanbrugh = new College("Vanbrugh", CrewMember.Vanbrugh);
