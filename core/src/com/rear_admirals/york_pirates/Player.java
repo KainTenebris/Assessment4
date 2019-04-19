@@ -31,6 +31,22 @@ public class Player {
         attacks.add(Attack.attackBoard);
     }
 
+    //Added for assessment 4 testing. Creating a ship must be done in an instance of a game, so we can pass null for testing
+    public Player(int gold, Ship ship) {
+        this.playerShip = ship;
+        this.gold = gold;
+        this.points = 0;
+        //New for assessment 4
+        this.crewMembers = new CrewMember[6];
+        for (int i=0;i<6;i++){
+            crewMembers[i] = new CrewMember();
+        }
+
+        attacks.add(Ram.attackRam);
+        attacks.add(GrapeShot.attackSwivel);
+        attacks.add(Attack.attackBoard);
+    }
+
     /*
     public Player(Ship ship) {
         this.playerShip = ship;
@@ -44,7 +60,6 @@ public class Player {
     */
 
     //New for assessment 4
-
     /**
      * Assigns a CrewMember to the player if there is a slot available
      * @param crewMember The CrewMember object to assign to the player

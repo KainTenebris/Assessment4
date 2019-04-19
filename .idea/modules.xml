@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/Assessment4.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/Assessment4.desktop.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/Assessment4.desktop.main.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/Assessment4.desktop.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/Assessment4.desktop.test.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/Assessment4.desktop.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/src/test.iml" filepath="$PROJECT_DIR$/core/src/test.iml" />
     </modules>
   </component>
 </project>

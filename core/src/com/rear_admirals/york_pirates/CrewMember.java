@@ -28,7 +28,7 @@ public class CrewMember {
             Map.Entry pair = (Map.Entry)it.next();
             info += " +"+pair.getValue().toString()+" "+pair.getKey()+",";
         }
-        info += " )";
+        info = info.substring(0, info.length() - 1) + " )";
     }
 
     /**
@@ -68,9 +68,10 @@ public class CrewMember {
     }
 
     /**
-     * A CrewMember is equal to another if object if both:
+     * A CrewMember is equal to another if object if all of the following are true:
      *  -the other object is a CrewMember
      *  -they are from the same College, since only 1 CrewMember per College is allowed
+     *  -the buff types/amounts are equal
      *
      * @param o the other object
      * @return true if equal, false otherwise
