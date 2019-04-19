@@ -50,7 +50,6 @@ public class CollegeScreen extends BaseScreen {
         optionsTable.setFillParent(true);
         Label title = new Label("Welcome to " + college.getName(), main.getSkin(), "title");
         final Label message = new Label("", main.getSkin());
-        final Label blegh = new Label("", main.getSkin());
         optionsTable.add(title);
 
 
@@ -92,6 +91,7 @@ public class CollegeScreen extends BaseScreen {
         optionsTable.row();
         optionsTable.add(minigame_mode);    //Added
 
+        //New for assessment 4:
         final TextButton crew_members_screen = new TextButton ("CrewMembers", pirateGame.getSkin());
         crew_members_screen.addListener(new ClickListener(){
             @Override
@@ -101,7 +101,7 @@ public class CollegeScreen extends BaseScreen {
             }
         });
         optionsTable.row();
-        optionsTable.add(blegh);
+        optionsTable.row();
         optionsTable.row();
         optionsTable.add(crew_members_screen);
 

@@ -15,6 +15,10 @@ import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 
 /* New class for Assessment 4 */
+
+/**
+ * Extends BaseScreen to show the buying/selling CrewMembers screen.
+ */
 public class CrewMembersScreen extends BaseScreen {
     private CrewMember crewMember;
     private Label pointsLabel;
@@ -30,7 +34,13 @@ public class CrewMembersScreen extends BaseScreen {
     private TextButton sell_CrewMember4;
     private TextButton sell_CrewMember5;
 
-
+    /**
+     * Creates a new CrewMembersScreen object
+     * @param main The game instance
+     * @param crewMember The CrewMember for sale at this college
+     * @param previous The screen to return to after this screen
+     * @param college The college currently visiting
+     */
     public CrewMembersScreen(PirateGame main, CrewMember crewMember, Screen previous, College college){
         super(main);
         this.crewMember = crewMember;
@@ -113,6 +123,7 @@ public class CrewMembersScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
+        //ESC returns to the previous screen
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             pirateGame.setScreen(this.previous);
             dispose();
@@ -135,6 +146,11 @@ public class CrewMembersScreen extends BaseScreen {
         sell_CrewMember5.setText(pirateGame.getPlayer().getCrewMembers()[5].toString());
     }
 
+    /**
+     * Adds a click listener to the buy_CrewMember button which assigns the CrewMember if
+     * there is space, it can be afforded, and hasn't already been purchased
+     * @param button The button to add the listener to
+     */
     private void buyListener(final TextButton button){
         button.addListener(new ClickListener(){
             @Override
@@ -145,8 +161,11 @@ public class CrewMembersScreen extends BaseScreen {
             }
         });
     }
-
-    private void sellListener(TextButton button, CrewMember crewmember){
+    /**
+     * Adds a click listener to the sell_CrewMember button which sells the CrewMember if it is not an empty slot
+     * @param button The button to add the listener to
+     */
+    private void sellListener(TextButton button, final CrewMember crewMember){
         button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

@@ -18,6 +18,7 @@ public class College {
         this.ally = new ArrayList<College>();
         this.ally.add(this);
         this.bossDead = false;
+        //New for Assessment 4
         this.crewMember = crewMember;
         this.bought = false;
     }
@@ -26,13 +27,21 @@ public class College {
         this.ally = new ArrayList<College>();
         this.ally.add(this);
         this.bossDead = false;
+        //New for assessment 4
         this.crewMember = null;
         this.bought = true;
     }
 
     //New for Assessment 4:
     public CrewMember getCrewMember()           { return this.crewMember;   }
+    //New for Assessment 4:
     public boolean bought()                     { return this.bought;       }
+    //New for Assessment 4:
+
+    /**
+     * Adds the CrewMember from this college to the player and processes the purchase
+     * @param player The Player object to add the CrewMember to.
+     */
     public void addCrewMember(Player player){
         if (!this.bought){
             if (player.getGold() >= CrewCost) {
@@ -43,6 +52,14 @@ public class College {
             }
         }
     }
+
+    //New for Assessment 4:
+    /**
+     * Removes the CrewMember from the Player object and processes the sale at 50% of purchase price
+     * @param crewMember The CrewMember object to remove
+     * @param player The Player to remove the CrewMember from
+     * @return True on success, False if player.removeCrewMember returned False (see Player)
+     */
     public boolean removeCrewMember(CrewMember crewMember, Player player){
         if (player.removeCrewMember(crewMember)){
             crewMember.getRealCollege().bought = false;
