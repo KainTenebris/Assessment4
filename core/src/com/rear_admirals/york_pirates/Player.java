@@ -13,12 +13,14 @@ public class Player {
     private int gold;
     private int points;
     public static List<Attack> attacks = new ArrayList<Attack>();
+    //New for assessment 4
     private CrewMember[] crewMembers;
 
     public Player(int gold) {
 	    this.playerShip = new Ship(Brig, "Your Ship", Derwent);
         this.gold = gold;
         this.points = 0;
+        //New for assessment 4
         this.crewMembers = new CrewMember[6];
         for (int i=0;i<6;i++){
             crewMembers[i] = new CrewMember();
@@ -41,6 +43,13 @@ public class Player {
     }
     */
 
+    //New for assessment 4
+
+    /**
+     * Assigns a CrewMember to the player if there is a slot available
+     * @param crewMember The CrewMember object to assign to the player
+     * @return True on success, false if there was no space available
+     */
     public boolean addCrewMember(CrewMember crewMember){
         /*
             iterates through the array of crewMembers
@@ -62,6 +71,12 @@ public class Player {
         }
         return false;
     }
+
+    /**
+     * Removes a CrewMember from the Player by setting it to a blank new CrewMember()
+     * @param crewMember The CrewMember to remove
+     * @return True if the CrewMember was removed, False if the CrewMember wasn't found
+     */
     public boolean removeCrewMember(CrewMember crewMember) {
         /*
             iterates through the array of crewMembers
@@ -83,12 +98,19 @@ public class Player {
         }
         return false;
     }
+
+    //New for assessment 4
+    /**
+     * Checks if the Player has space for another CrewMember
+     * @return True if there is a blank CrewMember, False otherwise
+     */
     public boolean hasSpace(){
         for (int i=0;i<6;i++){
             if (crewMembers[i].equals(new CrewMember())){   return true;    }
         }
         return false;
     }
+    //New for assessment 4
     public CrewMember[] getCrewMembers(){ return this.crewMembers;  }
 
     public Ship getPlayerShip()         { return this.playerShip;   }

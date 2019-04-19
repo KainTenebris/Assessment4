@@ -49,7 +49,8 @@ public class SailingScreen extends BaseScreen {
 
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private OrthographicCamera tiledCamera;
-    private int[] backgroundLayers = {0,1,2};
+    private int[] preWhirlpoolBackgroundLayers = {0};
+    private int[] postWhirlpoolBackgroundlayers = {1,2};
     private int[] foregroundLayers = {3};
 
     private Label pointsLabel;
@@ -90,7 +91,7 @@ public class SailingScreen extends BaseScreen {
         //inits message table
         initMessTable(main);
 
-        //inits tileMap (including relevant objeccts such as college/rock hitboxes, regions and the playerShip)
+        //inits tileMap (including relevant objects such as college/rock hitboxes, regions and the playerShip)
         initTileMap(main);
 
         timer = 0f;
@@ -144,7 +145,7 @@ public class SailingScreen extends BaseScreen {
 				
 				Random randint = new Random();
 				int enemyChance = randint.nextInt(10001);
-                if (enemyChance <= 10) {
+                if (enemyChance <= 1) {
                     System.out.println("Enemy Found in " + name);
                     College college = region.getCollege();
                     if (!playerShip.getCollege().getAlly().contains(college)) {
@@ -272,7 +273,14 @@ public class SailingScreen extends BaseScreen {
         // render
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        tiledMapRenderer.render(backgroundLayers);
+        tiledMapRenderer.render(preWhirlpoolBackgroundLayers);
+        if(whirlpool != null) {
+            mainStage.getBatch().begin();
+            whirlpool.draw(mainStage.getBatch(),1);
+            mainStage.getBatch().end();
+        }
+        tiledMapRenderer.render(postWhirlpoolBackgroundlayers);
+
         mainStage.draw();
 
         tiledMapRenderer.render(foregroundLayers);
@@ -451,7 +459,10 @@ public class SailingScreen extends BaseScreen {
         }
     }
 
-
+    //New for assessment 4
+    /**
+        Spawns a whirlpool at a random location.
+     */
     public void spawnObstacle() {
         System.out.println("Spawning obstacle");
         this.whirlpoolDelta = 0;
@@ -460,10 +471,6 @@ public class SailingScreen extends BaseScreen {
         int x = ran.nextInt(this.mapWidth - this.whirlpoolTexture.getWidth());
         int y = ran.nextInt(this.mapHeight - this.whirlpoolTexture.getHeight());
         this.whirlpool = new Obstacle(x, y, whirlpoolTexture);
-
-        mainStage.clear();
-        mainStage.addActor(this.whirlpool);
-        mainStage.addActor(this.playerShip);
 
         //Despawns after 30s
         whirlpoolTimer.schedule(new TimerTask() {
@@ -475,30 +482,37 @@ public class SailingScreen extends BaseScreen {
     }
 
     //New for Assessment 4:
+    /**
+        Deletes the whirlpool object.
+     */
     private void despawnObstacle() {
         System.out.println("Despawning obstacle");
-        mainStage.clear();
-        mainStage.addActor(this.playerShip);
         this.whirlpool = null;
     }
 
     //New for Assessment 4:
+    /**
+        Checks if the player is in a whirlpool and handles all the events if they are.
+            -Reduced speed
+            -Damage taken
+        Also randomly spawns a new obstacle if one doesn't exist
+
+        @param delta time since last call, used for damage over time calculations
+     */
     private void updateObstacle(float delta) {
-
-
-        if(this.whirlpool != null) {
-            if(this.whirlpool.overlaps(playerShip, false) != inWhirlpool) {
+        if (this.whirlpool != null) {
+            if (this.whirlpool.overlaps(playerShip, false) != inWhirlpool) {
                 inWhirlpool = !inWhirlpool;
             }
-            if(inWhirlpool) {
+            if (inWhirlpool) {
                 this.whirlpoolDelta += delta;
                 playerShip.setMaxSpeed(100);
-                if(this.whirlpoolDelta >= 0.5f) {
+                if (this.whirlpoolDelta >= 0.5f) {
                     playerShip.addHealth(-10);
-                    if(playerShip.getHealth() <= 0) {
+                    if (playerShip.getHealth() <= 0) {
                         playerShip.setHealth((int) (playerShip.getHealthMax() * .25));
                         Player player = pirateGame.getPlayer();
-                        player.addGold((int)(-0.5 * player.getGold()));
+                        player.addGold((int) (-0.5 * player.getGold()));
                     }
                     this.whirlpoolDelta -= 1;
                 }
@@ -508,11 +522,10 @@ public class SailingScreen extends BaseScreen {
             }
         } else {
             Random rand = new Random();
-            if(rand.nextInt(500) == 0) {
+            if (rand.nextInt(500) == 0) {
                 spawnObstacle();
                 return;
             }
         }
     }
-
 }

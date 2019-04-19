@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.rear_admirals.york_pirates.base.BaseActor;
 
 //New for Assessment 4:
+
+/**
+ * A class used to dynamically create Obstacles and draw them in the specified location
+ */
 public class Obstacle extends BaseActor {
     private int x;
     private int y;
