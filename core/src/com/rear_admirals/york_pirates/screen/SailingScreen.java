@@ -522,6 +522,11 @@ public class SailingScreen extends BaseScreen {
                 playerShip.setMaxSpeed(400);
             }
         } else {
+	    if(inWhirlpool) {
+                inWhirlpool = false;
+                this.whirlpoolDelta = 0;
+                playerShip.setMaxSpeed(400);
+            }
             Random rand = new Random();
             if (rand.nextInt(500) == 0) {
                 spawnObstacle();
