@@ -513,6 +513,7 @@ public class SailingScreen extends BaseScreen {
                         playerShip.setHealth((int) (playerShip.getHealthMax() * .25));
                         Player player = pirateGame.getPlayer();
                         player.addGold((int) (-0.5 * player.getGold()));
+			player.addPoints(-player.getPoints());
                     }
                     this.whirlpoolDelta -= 1;
                 }
